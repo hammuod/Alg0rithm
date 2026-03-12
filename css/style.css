@@ -63,27 +63,6 @@ section {
     color: var(--bg-card);
 }
 
-.about::after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 500px;
-    background: var(--primary);
-    clip-path: circle(100% at top );
-    z-index: 998;
-}
-
-.about::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: var(--primary);
-    clip-path: circle(100% at top );
-    z-index: 998;
-}
-
 nav {
     display: flex;
     justify-content: space-between;
