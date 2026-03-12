@@ -93,5 +93,3 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 });
-
-navigator.serviceWorker.register('./js/sw.js', { scope: '/' })

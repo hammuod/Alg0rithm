@@ -88,5 +88,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="js/index.js"></script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    // المسار صار مباشر لأنه بجانب الصفحة
+    navigator.serviceWorker.register('./sw.js') 
+      .then(() => console.log('Alg0rithm: نظام الطوارئ جاهز!'));
+  }
+    </script>
 </body>
 </html>
