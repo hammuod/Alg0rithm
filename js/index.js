@@ -94,4 +94,4 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-document.navigator.serviceWorker.register('./js/sw.js', { scope: '/' })
+navigator.serviceWorker.register('./js/sw.js', { scope: '/' })
