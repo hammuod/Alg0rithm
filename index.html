@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=hi, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Alg0rithm</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js').then(() => {
+            console.log('Service Worker registered');
+          }).catch((err) => console.log('SW registration failed:', err));
+        }
+      </script>
 </head>
 <body>
     
@@ -88,26 +95,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="js/index.js"></script>
-    <script>
-        const CACHE_NAME = 'alg0rithm-offline-v1';
-        const OFFLINE_URL = '/entrnet.html';
-        self.addEventListener('install', (event) => {
-            event.waitUntil(
-                caches.open(CACHE_NAME).then((cache) => {
-                    return cache.add(new Request(OFFLINE_URL, { cache: 'reload' }));
-                })
-            );
-        });
-
-        self.addEventListener('fetch', (event) => {
-            if (event.request.mode === 'navigate') {
-                event.respondWith(
-                    fetch(event.request).catch(() => {
-                        return caches.match(OFFLINE_URL);
-                    })
-                );
-            }
-        });
-    </script>
 </body>
 </html>

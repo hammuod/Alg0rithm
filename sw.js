@@ -33,9 +33,14 @@ self.addEventListener('activate', (event) => {
 
 // استرجاع من الكاش عند الطلب
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request);
-    })
-  );
+  // صفحات التنقّل: جرّب الشبكة، ولو فشلت اعرض صفحة offline
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match('/entrnet.html'))
+    );
+    return;
+  }
+
+  // باقي الملفات: كاش أولاً ثم الشبكة
+  event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });
