@@ -2,11 +2,7 @@
 window.$docsify = {
     el: '#app',
     name: 'Alg0rithm',
-    cleanUrls: true, // يزيل الـ .md من الروابط الداخلية
     routerMode: 'history', // يزيل الـ # تماماً
-    alias: {
-        '/bubble-sort': '/web/level1/bubble-sort.md',
-    },
     // بما أن ملف HTML في المجلد الرئيسي و docs بجانبه
     basePath: 'docs/', 
 
@@ -20,9 +16,28 @@ window.$docsify = {
     auto2top: true,
 };
 
-// دالة مساعدة اختيارية إذا أردت التحكم في التحميل يدوياً
-function loadAlgo(path) {
-    // Docsify يعمل تلقائياً مع الـ Hash (#/)
-    // ولكن هذه الدالة تفيدك إذا أردت عمل "Log" أو أكشن إضافي
-    window.location.hash = path;
+function ultimateCleanPath(path) {
+    if (!path) return '';
+
+    let clean = path.trim();
+
+    // 1. إزالة أي امتداد ملف (.html أو .md)
+    clean = clean.replace(/\.(html|md)$/i, '');
+
+    // 2. إزالة أي "هاش" زائد في البداية
+    clean = clean.replace(/^#\/?/, '');
+
+    // 3. التأكد من أن الرابط يبدأ بـ / واحد فقط
+    if (!clean.startsWith('/')) {
+        clean = '/' + clean;
+    }
+
+    // 4. تحويل للأحرف الصغيرة لضمان التوافق مع Vercel/Linux
+    clean = clean.toLowerCase();
+
+    // 5. إزالة أي تكرار للشرطات المائلة //
+    clean = clean.replace(/\/+/g, '/');
+
+    return clean;
 }
+
