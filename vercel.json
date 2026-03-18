@@ -24,10 +24,5 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "docs.html"
-    }
-  ]
+  "cleanUrls": true
 }
