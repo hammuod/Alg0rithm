@@ -2,11 +2,12 @@ window.$docsify = {
     el: '#app',
     name: 'Alg0rithm',
     routerMode: 'history',
-    // نصيحة: إذا كان الـ HTML بجانب مجلد docs، استخدم المسار النسبي الصحيح
-    basePath: './docs/', 
+    // مهم مع History Mode: لازم يكون مسار مطلق حتى ما يصير /web/.../docs بالخطأ
+    basePath: '/docs/',
 
     // أضف الـ Alias هنا لإجبار Docsify على تنظيف الروابط داخلياً
     alias: {
+        '/bubble-sort': 'web/level1/bubble-sort.md',
         '/(.*)': function(path) {
             return ultimateCleanPath(path);
         }

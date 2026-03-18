@@ -3,6 +3,11 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/learn", "destination": "/docs.html" },
+    { "source": "/learn/:path*", "destination": "/docs.html" },
+    { "source": "/bubble-sort", "destination": "/docs.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
