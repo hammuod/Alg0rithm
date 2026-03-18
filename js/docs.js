@@ -1,43 +1,37 @@
-// إعدادات Docsify للربط مع المجلدات الموضحة في الصورة
 window.$docsify = {
     el: '#app',
     name: 'Alg0rithm',
-    routerMode: 'history', // يزيل الـ # تماماً
-    // بما أن ملف HTML في المجلد الرئيسي و docs بجانبه
-    basePath: 'docs/', 
+    routerMode: 'history',
+    // نصيحة: إذا كان الـ HTML بجانب مجلد docs، استخدم المسار النسبي الصحيح
+    basePath: './docs/', 
 
-    // إعدادات الواجهة
-    loadSidebar: false, // نستخدم الـ Sidebar الخاص بك في HTML
-    homepage: 'home.md', // تأكد من وجوده داخل مجلد docs
+    // أضف الـ Alias هنا لإجبار Docsify على تنظيف الروابط داخلياً
+    alias: {
+        '/(.*)': function(path) {
+            return ultimateCleanPath(path);
+        }
+    },
+
+    loadSidebar: false,
+    homepage: 'home.md', // تأكد أن الملف اسمه docs/home.md
     themeColor: '#3fbbfe',
-    
-    // تفعيل الـ Plugins المفيدة
     executeScript: true,
     auto2top: true,
 };
 
+// دالة التنظيف (تعديل بسيط لضمان التوافق)
 function ultimateCleanPath(path) {
-    if (!path) return '';
+    if (!path || path === '/') return 'home.md'; // العودة للرئيسية إذا كان المسار فارغاً
 
     let clean = path.trim();
-
-    // 1. إزالة أي امتداد ملف (.html أو .md)
     clean = clean.replace(/\.(html|md)$/i, '');
-
-    // 2. إزالة أي "هاش" زائد في البداية
     clean = clean.replace(/^#\/?/, '');
-
-    // 3. التأكد من أن الرابط يبدأ بـ / واحد فقط
-    if (!clean.startsWith('/')) {
-        clean = '/' + clean;
+    
+    // ملاحظة: Docsify داخلياً يفضل المسارات بدون / في البداية عند استخدام basePath
+    if (clean.startsWith('/')) {
+        clean = clean.substring(1);
     }
 
-    // 4. تحويل للأحرف الصغيرة لضمان التوافق مع Vercel/Linux
     clean = clean.toLowerCase();
-
-    // 5. إزالة أي تكرار للشرطات المائلة //
-    clean = clean.replace(/\/+/g, '/');
-
-    return clean;
+    return clean + '.md'; // أضف .md هنا ليعرف Docsify ماذا يجلب من مجلد docs
 }
-
