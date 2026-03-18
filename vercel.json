@@ -2,12 +2,6 @@
   "framework": null,
   "buildCommand": null,
   "outputDirectory": ".",
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/learn", "destination": "/docs.html" },
-    { "source": "/learn/:path*", "destination": "/docs.html" },
-    { "source": "/bubble-sort", "destination": "/docs.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -27,6 +21,18 @@
       "headers": [
         { "key": "Cache-Control", "value": "no-cache" }
       ]
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/docs/(.*)",
+      "destination": "/docs/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/docs.html"
     }
   ]
 }
