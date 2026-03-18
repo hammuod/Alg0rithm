@@ -23,6 +23,5 @@
         { "key": "Cache-Control", "value": "no-cache" }
       ]
     }
-  ],
-  "cleanUrls": true
+  ]
 }
