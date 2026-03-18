@@ -1,5 +1,4 @@
 {
-  "cleanUrls": true,
   "framework": null,
   "buildCommand": null,
   "outputDirectory": ".",
@@ -23,6 +22,12 @@
       "headers": [
         { "key": "Cache-Control", "value": "no-cache" }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html" 
     }
   ]
 }

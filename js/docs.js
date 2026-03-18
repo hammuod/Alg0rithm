@@ -1,6 +1,10 @@
 // إعدادات Docsify للربط مع المجلدات الموضحة في الصورة
 window.$docsify = {
     el: '#app',
+    routerMode: 'history',
+    alias: {
+        '/bubble-sort': '/web/level1/bubble-sort.md',
+    },
     // بما أن ملف HTML في المجلد الرئيسي و docs بجانبه
     basePath: 'docs/', 
 
@@ -12,9 +16,6 @@ window.$docsify = {
     // تفعيل الـ Plugins المفيدة
     executeScript: true,
     auto2top: true,
-    alias: {
-    '/bubble-sort': '/web/level1/bubble-sort.md',
-    },
 };
 
 // دالة مساعدة اختيارية إذا أردت التحكم في التحميل يدوياً
