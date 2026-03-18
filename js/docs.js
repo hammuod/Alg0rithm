@@ -1,7 +1,9 @@
 // إعدادات Docsify للربط مع المجلدات الموضحة في الصورة
 window.$docsify = {
     el: '#app',
-    routerMode: 'history',
+    name: 'Alg0rithm',
+    cleanUrls: true, // يزيل الـ .md من الروابط الداخلية
+    routerMode: 'history', // يزيل الـ # تماماً
     alias: {
         '/bubble-sort': '/web/level1/bubble-sort.md',
     },

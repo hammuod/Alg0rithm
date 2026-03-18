@@ -24,11 +24,10 @@
       ]
     }
   ],
-  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/",
-      "destination": "/docs.html"
+      "destination": "docs.html"
     }
   ]
 }
