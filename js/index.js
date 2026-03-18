@@ -1,4 +1,5 @@
-// Dynamic header: hide on scroll down, show on scroll up, hide when scroll stops
+import { SpeedInsights } from "@vercel/speed-insights"  // for speed insights
+
 (function() {
     const header = document.getElementById('header');
     let lastScrollY = window.scrollY;
@@ -93,3 +94,5 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 });
+
+new SpeedInsights().observe();

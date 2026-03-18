@@ -1,4 +1,4 @@
-
+import { SpeedInsights } from "@vercel/speed-insights"
 const onnet = document.querySelector(".nonet")
 const yesnet = document.querySelector(".yesnet")
 
@@ -25,3 +25,5 @@ function offline(){
     yesnet.classList.add('hide');
     onnet.classList.remove('hide');
 }
+
+new SpeedInsights().observe();
