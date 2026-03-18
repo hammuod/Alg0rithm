@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Alg0rithm | learn ">
+    <meta property="og:description" content="Alg0rithm is a project to learn how to write, understand, and read algorithms for the normal developer, by Hammoud">
+    <meta property="og:image" content="img/icon.png">
+    <meta property="og:url" content="https://alg0rithm.vercel.app">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Alg0rithm">
+    <meta property="og:image:width" content="1200">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Alg0rithm</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js').then(() => {
+            console.log('Service Worker registered');
+          }).catch((err) => console.log('SW registration failed:', err));
+        }
+      </script>
+</head>
+<body>
+    
+    <header id="header">
+        <h1 class="logo">Alg0rithm</h1>
+        <nav>
+            <ul>
+                <li><a class="link" href="docs.html">learn</a></li>
+                <li><a class="link" href="#about">About</a></li>
+                <li><a class="link" href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input class="text" type="text" placeholder="Search">
+            <button class="btn" type="submit">Search</button>
+        </div>
+    </header>
+
+    <section id="main" class="main">
+        <div class="contenr-main">
+            <h2 class="titel-main">Algorithm</h2>
+            <p class="detales-main">Algorithm is a project to learn how to write, understand, and read algorithms for the normal developer, by Hammoud</p>
+            <button class="bin-main"><a href="docs.html" target="_blank"> go to learn </a></button>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="contenr-about" >
+            <h2 class="titel-about">Algorithm websit</h2>
+            <p class="detales-about">
+                Algorithms are step-by-step instructions we use to
+                solve problems or complete tasks.
+                By learning algorithms, you start thinking in a clear,
+                logical way before you write any code.
+                Here we focus on how to write, read, and understand algorithms in a
+                simple and practical style.
+            </p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h3 class="titel-contact">contact</h3>
+        <div class="contenr-contact">
+            <form id="contact-form">
+                <input type="hidden" name="to_email" value="hammuoddev459@gmail.com">
+                <h3 class="titel-form">Name</h3>
+                <input class="contact-text" type="text" name="user_name" required>
+                <h3 class="titel-form">Email</h3>
+                <input class="contact-text" type="email" name="user_email" required>
+                <h3 class="titel-form">Message</h3>
+                <textarea class="contact-text textarea" name="message" required></textarea>
+                <button class="contact-btn" type="submit">sand</button>
+                <div id="status" class="status">status</div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">Alg0rithm</h3>
+                <p class="footer-desc">Learn to write and understand algorithms in a simple and practical way</p>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul>
+                    <li><a href="Alg0rithmDocs.html">Learn</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4 class="footer-title">Contact Us</h4>
+                <a href="mailto:hammuoddev459@gmail.com" class="footer-email">hammuoddev459@gmail.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Alg0rithm — by Hammoud</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

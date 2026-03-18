@@ -1,0 +1,71 @@
+/* اعدادات */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+:root {
+    /* Light Mode - الوضع الفاتح */
+    --primary: #4A90E2;           /* أزرق */
+    --bg-light: #FFFFFF;          /* خلفية بيضاء */
+    --bg-card: #F8F9FA;           /* كاردات رمادي فاتح */
+    --text: #1B1C1D;              /* نص أسود */
+    --text-gray: #6B7280;         /* نص ثانوي */
+    
+    --accent: #00B4D8;            /* سماوي */
+    --border: rgba(0, 0, 0, 0.1); /* حدود خفيفة */
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+::selection {
+    background-color: var(--border);
+    color: var(--primary);
+}
+::-webkit-scrollbar {
+    background-color: var(--border);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 20px;
+}
+
+body {
+    background-color: var(--white-flash);
+    color: var(--white-flash);
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--white-flash);
+    transform: translateY(200px)
+}
+
+.back {
+    margin-top: 12px;
+    transform: translate(600px , 200px);
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary);
+    color: var(--bg-light);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.back a {
+    text-decoration: none;
+    color: var(--bg-light);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.back:hover {
+    background-color: var(--text);
+    margin-bottom: 10px;
+    transition: 1s;
+}
+
