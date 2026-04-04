@@ -1,4 +1,11 @@
-import { SpeedInsights } from "@vercel/speed-insights"  // for speed insights
+
+const btn = document.getElementById('dark-mode-toggle');
+
+btn.onclick = () => {
+    document.body.classList.toggle('dark-mode');
+
+    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+};
 
 (function() {
     const header = document.getElementById('header');
@@ -67,7 +74,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// email js
+
 (function() {
   emailjs.init("hsg7cNO1yXmdYkde7"); 
 })();
@@ -94,5 +101,3 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 });
-
-new SpeedInsights().observe();

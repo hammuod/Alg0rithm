@@ -1,4 +1,4 @@
-const CACHE_NAME = 'entrnet-v1';
+const CACHE_NAME = 'entrnet-v2';
 const ASSETS = [
   '/entrnet.html',
   '/css/net.css',
@@ -6,7 +6,8 @@ const ASSETS = [
   'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
   'https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js',
-  'https://cdn.jsdelivr.net/npm/docsify@4'
+  'https://cdn.jsdelivr.net/npm/docsify@4',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css'
 ];
 
 // تثبيت SW وتخزين الملفات في الكاش

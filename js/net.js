@@ -1,4 +1,3 @@
-import { SpeedInsights } from "@vercel/speed-insights"
 const onnet = document.querySelector(".nonet")
 const yesnet = document.querySelector(".yesnet")
 
@@ -26,4 +25,11 @@ function offline(){
     onnet.classList.remove('hide');
 }
 
-new SpeedInsights().observe();
+
+const btn = document.getElementById('dark-mode-toggle');
+
+btn.onclick = () => {
+    document.body.classList.toggle('dark-mode');
+
+    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+};

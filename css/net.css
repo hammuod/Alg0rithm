@@ -9,6 +9,59 @@
     --accent: #00B4D8;  
     --border: rgba(0, 0, 0, 0.1); 
 }
+
+.dark-mode {
+    --primary: #4A90E2;
+    --bg-light: #121417; /* أفتح شوي من الأسود السادة */
+    --bg-card: #1e2126;  /* لون الكروت والفورم */
+    --text: #f0f2f5;
+    --text-gray: #a0aec0; /* للوصف والروابط الفرعية */
+    --accent: #5da2f5;  
+    --border: rgba(255, 255, 255, 0.08); 
+}
+
+.dark-mode-toggle {
+    position: fixed;
+    top: 90%;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--bg-card);
+    color: var(--text);
+    border: none;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 1.5s ease;
+}
+
+.dark-mode-toggle:hover {
+    border-radius: 5px;
+    transform: rotate(90deg);
+}
+body, header, section, footer, div, a, button, input, textarea {
+    transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease, transform 0.8s ease;
+}
+.dark-mode-toggle {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-mode-toggle i {
+    transition: opacity 0.8s ease, transform 0.8s ease, color 0.8s ease;
+}
+
+.dark-mode-toggle:hover { color: #1e3a8a; transform: scale(1.1); }
+.dark-mode .dark-mode-toggle:hover { color: #fbbf24; transform: scale(1.1); }
+.fa-sun, .dark-mode .fa-moon { display: none; }
+.dark-mode .fa-sun { display: block; }
+.fa-sun { opacity: 0; transform: scale(0) rotate(-180deg); }
+.fa-moon { opacity: 1; transform: scale(1) rotate(0); }
+.dark-mode .fa-sun { opacity: 1; transform: scale(1) rotate(0); }
+.dark-mode .fa-moon { opacity: 0; transform: scale(0) rotate(180deg); }
+
+
 *{
     margin: 0;
     padding: 0;

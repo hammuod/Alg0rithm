@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#4A90E2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Alg0rithm | learn ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
     <meta name="google-site-verification" content="MVloeIJtCdD5d_roIdMjt72lyXP2nMOC3UdZN_UmXPU" />
     <meta property="og:description" content="Alg0rithm is a project to learn how to write, understand, and read algorithms for the normal developer, by Hammoud">
     <meta property="og:image" content="img/icon.png">
@@ -40,10 +41,15 @@
             console.log('Service Worker registered');
           }).catch((err) => console.log('SW registration failed:', err));
         }
-      </script>
+    </script>
 </head>
 <body>
-    
+
+    <button class="dark-mode-toggle" id="dark-mode-toggle" >
+        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-sun"></i>
+    </button>
+
     <header id="header">
         <h1 class="logo">Alg0rithm</h1>
         <nav>
