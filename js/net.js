@@ -28,6 +28,12 @@ function offline(){
 
 const btn = document.getElementById('dark-mode-toggle');
 
+if(localStorage.getItem("theme") == "dark"){
+    document.body.classList.add("dark-mode")
+}else{
+    document.body.classList.remove("dark-mode")
+};
+
 btn.onclick = () => {
     document.body.classList.toggle('dark-mode');
 

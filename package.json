@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@vercel/speed-insights": "^2.0.0",
-    "docsify": "^4.13.1"
+    "generate-github-markdown-css": "^6.6.0",
+    "marked": "^18.0.0"
   }
 }
