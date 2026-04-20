@@ -16,4 +16,4 @@ Disallow: /LICENSE
 Disallow: /.gitignore
 
 
-Sitemap: https://alg0rithm.vercel.app/sitemap.xml
+Sitemap: https://hammuod.github.io/Alg0rithm/sitemap.xml

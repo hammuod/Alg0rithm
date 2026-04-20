@@ -24,39 +24,26 @@
     <title>Alg0rithm | Docs </title>
 </head>
 <body>
-    
-  <button class="dark-mode-toggle" id="dark-mode-toggle" >
-    <i class="fa-solid fa-moon"></i>
-    <i class="fa-solid fa-sun"></i>
-  </button>
   
     <div class="d-flex">
         <div class="sidebar p-3" style="width: 250px; height: 100vh; overflow-y: auto; background-color: var(--bg-card); border-right: 1px solid var(--border);">
           <span class="small" style="color: var(--text-gray);">Alg0rithm@1.2</span>
-          <a class="d-block text-decoration-none p-2 rounded mt-2" style="background-color: var(--primary); color: var(--bg-light);">start</a>
-          
+          <a  href="docs/home" data-doc="home.md"  class="d-block text-decoration-none p-2 rounded mt-2" style="background-color: var(--primary); color: var(--bg-light);">start</a>
+
           <div class="accordion accordion-flush mt-2" id="sidebarAccordion">
             <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#hooks">Web (JavaScript) </button>
+                <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#web">Web (JavaScript) </button>
               </h2>
-              <div id="hooks" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+              <div id="web" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                 <div class="accordion-body p-0">
-                  <a href="bubble-sort" data-doc="bubble-sort" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">bubble sort</a>
-                  <a href="#games" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">games</a>
-                </div>
-              </div>
-            </div>
-      
-            <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#components">
-                  Components
-                </button>
-              </h2>
-              <div id="components" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
-                <div class="accordion-body p-0">
-                  <a href="#fragment" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Fragment</a>
+
+                  <a href="?=docs/bubble-sort" data-doc="web/bubble-sort" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Bubble Sort</a>
+                  <a href="?=docs/selection-sort" data-doc="web/selection-sort" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Selection Sort</a>
+                  <a href="?=docs/linear-search"  data-doc="web/linear-search" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Linear Search</a>
+                  <a href="?=docs/find-maximum"  data-doc="web/find-maximum" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Find Maximum</a>
+
+
                 </div>
               </div>
             </div>
@@ -64,7 +51,7 @@
         </div>
       
         <!-- Main Content -->
-        <div class="flex-grow-1 p-4 markdown-body " style="background-color: var(--bg-light);" id="app" >
+        <div class="flex-grow-1 p-4" style="background-color: var(--bg-light);" id="app" >
         </div>
       </div>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>

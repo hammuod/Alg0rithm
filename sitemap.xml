@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://alg0rithm.vercel.app/</loc>
+    <loc>https://hammuod.github.io/Alg0rithm/</loc>
     <lastmod>2026-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://alg0rithm.vercel.app/#/web/level1/bubble-sort</loc>
+    <loc>https://hammuod.github.io/Alg0rithm/</loc>
     <lastmod>2026-03-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
