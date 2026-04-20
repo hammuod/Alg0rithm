@@ -1,67 +1,15 @@
 /* اعدادات */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Fira+Code:wght@300..700&display=swap');
-:root {
-    --primary: #4A90E2;
-    --bg-light: #FFFFFF;
-    --bg-card: #F8F9FA;
-    --text: #1B1C1D;
-    --text-gray: #6B7280;
-    --accent: #00B4D8;  
-    --border: rgba(0, 0, 0, 0.1); 
-}
-
 
 .dark-mode {
     --primary: #4A90E2;
-    --bg-light: #121417; /* أفتح شوي من الأسود السادة */
-    --bg-card: #1e2126;  /* لون الكروت والفورم */
+    --bg-light: #121417; 
+    --bg-card: #1e2126;  
     --text: #f0f2f5;
-    --text-gray: #a0aec0; /* للوصف والروابط الفرعية */
+    --text-gray: #a0aec0; 
     --accent: #5da2f5;  
     --border: rgba(255, 255, 255, 0.08); 
 }
-
-.dark-mode-toggle {
-    position: fixed;
-    top: 90%;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--bg-card);
-    color: var(--text);
-    border: none;
-    display: flex;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 1.5s ease;
-}
-
-.dark-mode-toggle:hover {
-    border-radius: 5px;
-    transform: rotate(90deg);
-}
-body, header, section, footer, div, a, button, input, textarea {
-    transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease, transform 0.8s ease;
-}
-.dark-mode-toggle {
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark-mode-toggle i {
-    transition: opacity 0.8s ease, transform 0.8s ease, color 0.8s ease;
-}
-
-.dark-mode-toggle:hover { color: #1e3a8a; transform: scale(1.1); }
-.dark-mode .dark-mode-toggle:hover { color: #fbbf24; transform: scale(1.1); }
-.fa-sun, .dark-mode .fa-moon { display: none; }
-.dark-mode .fa-sun { display: block; }
-.fa-sun { opacity: 0; transform: scale(0) rotate(-180deg); }
-.fa-moon { opacity: 1; transform: scale(1) rotate(0); }
-.dark-mode .fa-sun { opacity: 1; transform: scale(1) rotate(0); }
-.dark-mode .fa-moon { opacity: 0; transform: scale(0) rotate(180deg); }
-
 
 *{
     margin: 0;
@@ -91,6 +39,10 @@ body, header, section, footer, div, a, button, input, textarea {
 }
 
 .sidebar .active-link {
+
+}
+
+.sidebar .active-link {
     background-color: var(--primary);
     color: var(--bg-light);
 }
@@ -113,7 +65,7 @@ body, header, section, footer, div, a, button, input, textarea {
 }
 
 .sidebar a {
-    color: var(--text-gray);
+    color: var(--text);
     transition: color 0.2s;
     text-decoration: none;
 }
@@ -126,68 +78,38 @@ body, header, section, footer, div, a, button, input, textarea {
     display: none;
 }
 
-.markdown-section {
-    margin: 20px 50px ;
+pre {
+    width: 900px;
+    height: auto;
 }
 
-.markdown-section h1 {
-    color: var(--primary);
-    padding: 5px 10px ;
-    background-color: var(--bg-card);
-    font-size: 1.8rem;
-    width: fit-content;
-    border-radius: 10px;
-}
 
-.markdown-section h2 {
-    font-size: 1.2rem;
-    width: fit-content;
-}
-
-.markdown-section p {
-    font-size: 1.2rem;
-    margin-top: 30px;
-    width: 800px;
-}
-
-.markdown-section a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: all 1s ease;
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-
-.markdown-section a:hover {
-    color: var(--text);
-    transform: translateX(-10px);
-}
-
-.markdown-section pre {
-    background: #1e1e2f;
-    border-radius: 12px;
-  }
-  
-  .markdown-section code {
-    font-family: 'Fira Code', monospace;
-    color: var(--bg-card);
-    padding: 10px;
+.sidebar {
+    overflow-y: auto;
+    height: 100vh;
+    width: 200px;
+    position: sticky;
+    top: 0;
   }
 
-.hilit {
-    color: var(--bg-card);
-    padding: 5px 10px ;
-    background-color: var(--text);
-    height: fit-content;
-    width: fit-content;
-    border-radius: 10px;
+#app {
+    overflow-y: auto;
+    height: 100vh;
+    padding-left: 70px;
+    padding-top: 30px;
+    height: 100vh;
+    width: 100%;
 }
 
- ul {
-    list-style: none;
+p code {
+    color: var(--primary);
 }
 
-.sidebar-nav {
-    display: none;
+p {
+     width: 900px;
 }
 
+
+.link {
+    color: var(--text-gray);
+}
