@@ -18,22 +18,20 @@ No sorting required. No tricks. Just check every element in order.
 
 ## Code Block
 
-```js
-/**
- * Searches for a target value in an array using Linear Search.
- * @param {number[]} arr - The array to search through.
- * @param {number} target - The value to find.
- * @returns {number} The index of the target, or -1 if not found.
- */
-function linearSearch(arr, target) {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === target) {
-      return i;
-    }
-  }
-  return -1;
-}
-```
+<pre><span class="pl-c">/**</span>
+<span class="pl-c"> * Searches for a target value in an array using Linear Search.</span>
+<span class="pl-c"> * <span class="pl-k">@param</span> {<span class="pl-smi">number[]</span>} arr - The array to search through.</span>
+<span class="pl-c"> * <span class="pl-k">@param</span> {<span class="pl-smi">number</span>} target - The value to find.</span>
+<span class="pl-c"> * <span class="pl-k">@returns</span> {<span class="pl-smi">number</span>} The index of the target, or -1 if not found.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">function</span> <span class="pl-en">linearSearch</span><span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">,</span> <span class="pl-s1">target</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">arr</span><span class="pl-kos">.</span><span class="pl-c1">length</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span> <span class="pl-c1">===</span> <span class="pl-s1">target</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-k">return</span> <span class="pl-s1">i</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-k">return</span> <span class="pl-c1">-</span><span class="pl-c1">1</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre>
 
 ---
 

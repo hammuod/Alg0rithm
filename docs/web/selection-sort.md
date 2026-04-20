@@ -18,32 +18,30 @@ and moves it to the beginning.
 
 ## Code Block
 
-```js
-/**
- * Sorts an array of numbers in ascending order using Selection Sort.
- * @param {number[]} arr - The array to be sorted.
- * @returns {number[]} The sorted array.
- */
-function selectionSort(arr) {
-  const n = arr.length;
+<pre><span class="pl-c">/**</span>
+<span class="pl-c"> * Sorts an array of numbers in ascending order using Selection Sort.</span>
+<span class="pl-c"> * <span class="pl-k">@param</span> {<span class="pl-smi">number[]</span>} arr - The array to be sorted.</span>
+<span class="pl-c"> * <span class="pl-k">@returns</span> {<span class="pl-smi">number[]</span>} The sorted array.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">function</span> <span class="pl-en">selectionSort</span><span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">const</span> <span class="pl-s1">n</span> <span class="pl-c1">=</span> <span class="pl-s1">arr</span><span class="pl-kos">.</span><span class="pl-c1">length</span><span class="pl-kos">;</span>
 
-  for (let i = 0; i < n - 1; i++) {
-    let minIndex = i;
+  <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">n</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">let</span> <span class="pl-s1">minIndex</span> <span class="pl-c1">=</span> <span class="pl-s1">i</span><span class="pl-kos">;</span>
 
-    for (let j = i + 1; j < n; j++) {
-      if (arr[j] < arr[minIndex]) {
-        minIndex = j;
-      }
-    }
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">j</span> <span class="pl-c1">=</span> <span class="pl-s1">i</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">j</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">n</span><span class="pl-kos">;</span> <span class="pl-s1">j</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">j</span><span class="pl-kos">]</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">minIndex</span><span class="pl-kos">]</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-s1">minIndex</span> <span class="pl-c1">=</span> <span class="pl-s1">j</span><span class="pl-kos">;</span>
+      <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span>
 
-    if (minIndex !== i) {
-      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
-    }
-  }
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">minIndex</span> <span class="pl-c1">!==</span> <span class="pl-s1">i</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-kos">[</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span><span class="pl-kos">,</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">minIndex</span><span class="pl-kos">]</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">minIndex</span><span class="pl-kos">]</span><span class="pl-kos">,</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+  <span class="pl-kos">}</span>
 
-  return arr;
-}
-```
+  <span class="pl-k">return</span> <span class="pl-s1">arr</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre>
 
 ---
 

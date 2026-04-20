@@ -101,8 +101,8 @@ pre {
     width: 100%;
 }
 
-p code {
-    color: var(--primary);
+code {
+    color: var(--text);
 }
 
 p {

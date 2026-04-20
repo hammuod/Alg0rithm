@@ -19,32 +19,30 @@ element to its correct position at the end.
 
 ## Code Block
 
-```js
-/**
- * Sorts an array of numbers in ascending order using Bubble Sort.
- * @param {number[]} arr - The array to be sorted.
- * @returns {number[]} The sorted array.
- */
-function bubbleSort(arr) {
-  const n = arr.length;
-  let swapped;
+<pre><span class="pl-c">/**</span>
+<span class="pl-c"> * Sorts an array of numbers in ascending order using Bubble Sort.</span>
+<span class="pl-c"> * <span class="pl-k">@param</span> {<span class="pl-smi">number[]</span>} arr - The array to be sorted.</span>
+<span class="pl-c"> * <span class="pl-k">@returns</span> {<span class="pl-smi">number[]</span>} The sorted array.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">function</span> <span class="pl-en">bubbleSort</span><span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">const</span> <span class="pl-s1">n</span> <span class="pl-c1">=</span> <span class="pl-s1">arr</span><span class="pl-kos">.</span><span class="pl-c1">length</span><span class="pl-kos">;</span>
+  <span class="pl-k">let</span> <span class="pl-s1">swapped</span><span class="pl-kos">;</span>
 
-  for (let i = 0; i < n - 1; i++) {
-    swapped = false;
+  <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">n</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-s1">swapped</span> <span class="pl-c1">=</span> <span class="pl-c1">false</span><span class="pl-kos">;</span>
 
-    for (let j = 0; j < n - 1 - i; j++) {
-      if (arr[j] > arr[j + 1]) {
-        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-        swapped = true;
-      }
-    }
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">j</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">j</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">n</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span> <span class="pl-c1">-</span> <span class="pl-s1">i</span><span class="pl-kos">;</span> <span class="pl-s1">j</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">j</span><span class="pl-kos">]</span> <span class="pl-c1">&gt;</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">j</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span><span class="pl-kos">]</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-kos">[</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">j</span><span class="pl-kos">]</span><span class="pl-kos">,</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">j</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span><span class="pl-kos">]</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">j</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span><span class="pl-kos">]</span><span class="pl-kos">,</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">j</span><span class="pl-kos">]</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+        <span class="pl-s1">swapped</span> <span class="pl-c1">=</span> <span class="pl-c1">true</span><span class="pl-kos">;</span>
+      <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span>
 
-    if (!swapped) break;
-  }
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-c1">!</span><span class="pl-s1">swapped</span><span class="pl-kos">)</span> <span class="pl-k">break</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
 
-  return arr;
-}
-```
+  <span class="pl-k">return</span> <span class="pl-s1">arr</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre>
 
 ---
 

@@ -18,24 +18,22 @@ By the end of the loop, that value is the maximum.
 
 ## Code Block
 
-```js
-/**
- * Finds the maximum value in an array of numbers.
- * @param {number[]} arr - The array to search through.
- * @returns {number} The largest number in the array.
- */
-function findMaximum(arr) {
-  let max = arr[0];
+<pre><span class="pl-c">/**</span>
+<span class="pl-c"> * Finds the maximum value in an array of numbers.</span>
+<span class="pl-c"> * <span class="pl-k">@param</span> {<span class="pl-smi">number[]</span>} arr - The array to search through.</span>
+<span class="pl-c"> * <span class="pl-k">@returns</span> {<span class="pl-smi">number</span>} The largest number in the array.</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">function</span> <span class="pl-en">findMaximum</span><span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">let</span> <span class="pl-s1">max</span> <span class="pl-c1">=</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
 
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] > max) {
-      max = arr[i];
-    }
-  }
+  <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">let</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-s1">arr</span><span class="pl-kos">.</span><span class="pl-c1">length</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span> <span class="pl-c1">&gt;</span> <span class="pl-s1">max</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-s1">max</span> <span class="pl-c1">=</span> <span class="pl-s1">arr</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+  <span class="pl-kos">}</span>
 
-  return max;
-}
-```
+  <span class="pl-k">return</span> <span class="pl-s1">max</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span></pre>
 
 ---
 
