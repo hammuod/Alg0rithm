@@ -14,7 +14,7 @@ window.addEventListener('online', function(){
 window.addEventListener('offline', function(){
     offline()
 })
-
+41
 function online(){
     onnet.classList.add('hide');
     yesnet.classList.remove('hide');
