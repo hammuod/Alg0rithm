@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
     <meta name="google-site-verification" content="MVloeIJtCdD5d_roIdMjt72lyXP2nMOC3UdZN_UmXPU" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <meta property="og:description" content="Alg0rithm is a project to learn how to write, understand, and read algorithms for the normal developer, by Hammoud">
+    <meta name="description" content="Alg0rithm: An interactive platform to learn programming logic and algorithms through visual tools and simplified documentation.">
     <meta property="og:image" content="img/icon.png">
     <meta property="og:url" content="https://alg0rithm.vercel.app">
     <meta property="og:type" content="website">
@@ -46,27 +46,27 @@
 </head>
 <body>
 
-    <button class="dark-mode-toggle" id="dark-mode-toggle" >
+    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark and light mode">
         <i class="fa-solid fa-moon"></i>
         <i class="fa-solid fa-sun"></i>
     </button>
     <header id="header">
         <h1 class="logo">Alg0rithm</h1>
-        <nav>
+        <nav aria-label="Main Navigation" >
             <ul>
                 <li><a class="link" href="docs.html">learn</a></li>
                 <li><a class="link" href="#about">About</a></li>
                 <li><a class="link" href="#contact">Contact</a></li>
             </ul>
         </nav>
-        <div class="search-bar">
-            <input class="text" type="text" placeholder="Search">
+        <div class="search-bar" >
+            <input class="text" type="text" placeholder="Search" aria-label="Search algorithms" >
             <button class="btn" type="submit">Search</button>
         </div>
 
     </header>
 
-    <section id="main" class="main">
+    <section id="main" role="main" class="main">
         <div class="contenr-main">
             <h2 class="titel-main">Algorithm</h2>
             <p class="detales-main">Algorithm is a project to learn how to write, understand, and read algorithms for the normal developer, by Hammoud</p>
@@ -105,7 +105,7 @@
         </div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo" >
         <div class="footer-content">
             <div class="footer-brand">
                 <h3 class="footer-logo">Alg0rithm</h3>
