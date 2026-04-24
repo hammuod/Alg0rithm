@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "generate-github-markdown-css": "^6.6.0",
     "marked": "^18.0.0"
   }
 }
