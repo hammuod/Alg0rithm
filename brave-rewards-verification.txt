@@ -1,0 +1,4 @@
+This is a Brave Creators publisher verification file.
+
+Domain: alg0rithm.dev
+Token: ee582df64a4e511c0c7206b4fc6b94ced1567181b411e4f181368395b39c1c8f
