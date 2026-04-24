@@ -16,4 +16,4 @@ Disallow: /LICENSE
 Disallow: /.gitignore
 
 
-Sitemap: https://hammuod.github.io/Alg0rithm/sitemap.xml
+Sitemap: https://alg0rithm.dev/sitemap.xml
