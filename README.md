@@ -1,8 +1,4 @@
-# You are free as long as you do no harm | أنت حر ما لم تضر
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/hammuod/Alg0rithm/main/imgs/icon.png" alt="Alg0rithm Logo" width="600">
-</p>
+أنت حر ما لم تضر
 
 # Alg0rithm
 
@@ -24,7 +20,7 @@ Alg0rithm is a minimalist educational platform built to simplify programming log
 
 ## Deployment & Updates
 
-With over **77 deployments**, Alg0rithm is constantly evolving. Our team operates on a weekly rotation, ensuring daily updates and consistent project growth.
+With over **80 deployments**, Alg0rithm is constantly evolving. Our team operates on a weekly rotation, ensuring daily updates and consistent project growth.
 
 ## Contributing
 
@@ -34,6 +30,10 @@ We welcome ethical contributors. Please read our `CONTRIBUTING.md` before submit
 
 This project is licensed under the **AGPL-3.0 License**.
 Original Creator: **Hammoud (hammuod)**
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hammuod/Alg0rithm/main/imgs/icon.png" alt="Alg0rithm Logo" width="600">
+</p>
 
 ---
 "Complexity is the enemy of execution. We choose simplicity."
