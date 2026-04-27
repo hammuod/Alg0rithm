@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://hammuod.github.io/Alg0rithm/</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://alg0rithm.dev/</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://hammuod.github.io/Alg0rithm/docs.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://alg0rithm.dev/docs</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://hammuod.github.io/Alg0rithm/docs.html?=web/bubble-sort</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://alg0rithm.dev/docs?=web/bubble-sort</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://hammuod.github.io/Alg0rithm/docs.html?=web/selection-sort</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://alg0rithm.dev/docs?=web/selection-sort</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://hammuod.github.io/Alg0rithm/docs.html?=web/linear-search</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://alg0rithm.dev/docs?=web/linear-search</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://hammuod.github.io/Alg0rithm/docs.html?=web/find-maximum</loc>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://alg0rithm.dev/docs?=web/find-maximum</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
