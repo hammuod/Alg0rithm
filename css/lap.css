@@ -1,0 +1,59 @@
+/* اعدادات */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Fira+Code:wght@300..700&display=swap');
+:root {
+    --primary: #4A90E2;
+    --bg-light: #FFFFFF;
+    --bg-card: #F8F9FA;
+    --text: #1B1C1D;
+    --text-gray: #6B7280;
+    --accent: #00B4D8;  
+    --border: rgba(0, 0, 0, 0.1); 
+}
+
+.dark-mode {
+    --primary: #60a5fa;  
+    --bg-light: #121417; 
+    --bg-card: #1e2126;  
+    --text: #f0f2f5;
+    --text-gray: #b0bbca; 
+    --accent: #60a5fa;    
+    --border: rgba(255, 255, 255, 0.08); 
+}
+
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: "cairo","firacode";
+}
+
+.container {
+    display: flex;
+    align-items: flex-end;
+    gap: 13px;
+    height: 500px;
+    justify-content: center;
+}
+
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 73px; 
+}
+
+.num {
+    color: var(--text-gray);
+    font-weight: 700;
+    margin-bottom: 8px;
+    transition: color 0.5s; 
+}
+
+.rec {
+    width: 83px;
+    background-color: var(--text-gray);
+    border-radius: 3px 3px 0 0;
+    transition: height 0.5s ease-in-out, background-color 0.5s;
+}

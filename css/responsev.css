@@ -1,0 +1,32 @@
+
+@media (min-width: 992px) {
+    #headerContent {
+        display: flex !important;
+        flex-basis: auto;
+    }
+}
+
+
+@media (max-width: 991px) {
+    #headerContent.show {
+        display: block !important; 
+        width: 100%;
+    }
+    
+    .custom-nav-list {
+        flex-direction: column; 
+        align-items: center;
+        padding: 15px 0;
+    }
+}
+
+
+.custom-burger {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent;
+}
+.custom-burger i {
+    color: #333;
+    font-size: 1.5rem;
+}
