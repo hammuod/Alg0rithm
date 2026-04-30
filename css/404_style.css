@@ -84,21 +84,28 @@ body, header, section, footer, div, a, button, input, textarea {
 }
 
 body {
-    background-color: var(--white-flash);
-    color: var(--white-flash);
+    background-color: var(--bg-light);
+    color: var(--text);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+}
+
+.error-content {
+    width: min(520px, 100%);
+    text-align: center;
 }
 
 h1 {
     font-size: 4rem;
     font-weight: 700;
-    text-align: center;
-    color: var(--white-flash);
-    transform: translateY(200px)
+    color: var(--text);
+    margin: 0;
 }
 
 .back {
-    margin-top: 12px;
-    transform: translate(600px , 200px);
+    margin-top: 18px;
     padding: 10px 12px;
     border-radius: 8px;
     border: none;
@@ -118,7 +125,12 @@ h1 {
 
 .back:hover {
     background-color: var(--text);
-    margin-bottom: 10px;
-    transition: 1s;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
 }
 

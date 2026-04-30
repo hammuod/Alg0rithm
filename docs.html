@@ -22,14 +22,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/docs.css">
+    <link rel="stylesheet" href="css/responsev.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css">
     <link rel="icon" href="img/icon.png">
     <title>Alg0rithm | Docs </title>
 </head>
 <body>
-  
-    <div class="d-flex">
-        <div class="sidebar p-3" style="width: 250px; height: 100vh; overflow-y: auto; background-color: var(--bg-card); border-right: 1px solid var(--border);">
+    <button id="sidebarToggle" class="sidebar-toggle-btn" type="button" aria-label="Toggle docs sidebar">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="d-flex docs-layout">
+        <aside id="docsSidebar" class="sidebar p-3 docs-sidebar">
           <span class="small" style="color: var(--text-gray);">Alg0rithm@1.2</span>
 
           <div class="accordion accordion-flush mt-2" id="sidebarAccordion">
@@ -50,10 +55,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </aside>
       
         <!-- Main Content -->
-        <div class="flex-grow-1 p-4" style="background-color: var(--bg-light);" id="app" >
+        <div class="flex-grow-1 p-4 docs-app" id="app">
         </div>
       </div>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>

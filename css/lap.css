@@ -21,19 +21,26 @@
 }
 
 body{
+    box-sizing: border-box;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    height: 100dvh;
+    padding: 16px;
     font-family: "cairo","firacode";
+    background-color: var(--bg-card);
+    overflow: hidden;
 }
 
-.container {
+body .container {
     display: flex;
     align-items: flex-end;
     gap: 13px;
-    height: 500px;
+    height: auto !important;
+    min-height: 0 !important;
+    width: min(100%, 900px);
     justify-content: center;
 }
 

@@ -26,9 +26,31 @@ document.addEventListener('click', e => {
   const path = a.getAttribute('data-doc');
   history.pushState(null, '', `?=${path}`);
   loadDoc(path);
+  document.body.classList.remove('docs-sidebar-open');
 });
 
 document.body.classList.add("dark-mode");
+
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+if (sidebarToggle) {
+  sidebarToggle.addEventListener('click', () => {
+    document.body.classList.toggle('docs-sidebar-open');
+  });
+}
+
+if (sidebarBackdrop) {
+  sidebarBackdrop.addEventListener('click', () => {
+    document.body.classList.remove('docs-sidebar-open');
+  });
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.body.classList.remove('docs-sidebar-open');
+  }
+});
 
 // تحميل أول صفحة
 const param = new URLSearchParams(location.search).get('');
