@@ -31,6 +31,7 @@ html {
     font-family: 'Cairo', sans-serif;
 }
 
+
 ::selection {
     background-color: var(--border);
     color: var(--primary);
