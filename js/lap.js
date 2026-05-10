@@ -1,7 +1,7 @@
-const primary = "#6B7280", blue = "#4A90E2", green = "#4ade80", red = "#f87171", orange = "#fb923c", yellow = "#fbbf24";
-let bars, nums, isPaused = false, history = [], currentStepIndex = -1, currentAbortController = null;
-
+const primary = "#6B7280", blue = "#4A90E2", green = "#4ade80", red = "#f87171", yellow = "#fbbf24";
+let NUM_SLEEP = 1000;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+let bars, nums, isPaused = false, history = [], currentStepIndex = -1, currentAbortController = null, currentAlgoKey = '1';
 
 const algosData = {
     '1': [38, 27, 43, 3, 9, 82, 10],
@@ -11,22 +11,27 @@ const algosData = {
     '5': [38, 27, 43, 3, 9, 82, 10],
     '6': [38, 27, 43, 3, 9, 82, 10],
     '7': [4, 2, 2, 8, 3, 3, 1],
-    '8': [4, 2, 2, 8, 3, 3, 1],
-    '9': [170, 45, 75, 90, 802, 24, 2]
+    'b1': [1, 7, 24, 39, 40, 45, 89],
+    'b2': [2, 3, 22, 29, 38, 40, 84],
+    'b3': [4, 7, 30, 37, 40, 55, 92],
+    'b4': [2, 5, 64, 57, 68, 79, 95]
 };
 
-function recordSnapshot(arr, activeIndices = [], type = 'normal') {
-    history.push({ values: [...arr], active: [...activeIndices], type });
+const btnPlay = document.querySelector('.btns');
+const btnStop = document.querySelector('.btnp');
+const btnNext = document.querySelector('.btnR');
+const btnPrev = document.querySelector('.btnL');
+const iconPlay = btnPlay?.querySelector('i');
+
+function recordSnapshot(arr, activeIndices = [], sortedIndices = [], type = 'normal') {
+    history.push({ values: [...arr], active: [...activeIndices], sorted: [...sortedIndices], type });
 }
 
 function bubbleSort(arr) {
-    for (let i = 0; i < arr.length - 1; i++) {
+    for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr.length - i - 1; j++) {
-            recordSnapshot(arr, [j, j+1], 'compare');
-            if (arr[j] > arr[j + 1]) {
-                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-                recordSnapshot(arr, [j, j+1], 'swap');
-            }
+            recordSnapshot(arr, [j, j + 1], Array.from({length: i}, (_, k) => arr.length - 1 - k), 'compare');
+            if (arr[j] > arr[j + 1]) { [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; recordSnapshot(arr, [j, j + 1], Array.from({length: i}, (_, k) => arr.length - 1 - k), 'swap'); }
         }
     }
 }
@@ -35,142 +40,143 @@ function selectionSort(arr) {
     for (let i = 0; i < arr.length; i++) {
         let min = i;
         for (let j = i + 1; j < arr.length; j++) {
-            recordSnapshot(arr, [j, min], 'compare');
-            if (arr[j] < arr[min]) {
-                min = j;
-                recordSnapshot(arr, [min], 'minFound');
-            }
+            recordSnapshot(arr, [j, min], Array.from({length: i}, (_, k) => k), 'compare');
+            if (arr[j] < arr[min]) min = j;
         }
-        [arr[i], arr[min]] = [arr[min], arr[i]];
-        recordSnapshot(arr, [i, min], 'swap');
+        [arr[i], arr[min]] = [arr[min], arr[i]]; recordSnapshot(arr, [i, min], Array.from({length: i + 1}, (_, k) => k), 'swap');
     }
 }
 
 function insertionSort(arr) {
-    for (let i = 1; i < arr.length; i++) {
-        let j = i;
-        while (j > 0 && arr[j] < arr[j - 1]) {
-            recordSnapshot(arr, [j, j - 1], 'compare');
-            [arr[j], arr[j - 1]] = [arr[j - 1], arr[j]];
-            recordSnapshot(arr, [j, j - 1], 'swap');
+    for (let i = 0; i < arr.length; i++) {
+        let temp = arr[i], j = i - 1;
+        while (j >= 0 && arr[j] > temp) {
+            recordSnapshot(arr, [j, j + 1], Array.from({length: i}, (_, k) => k), 'compare');
+            arr[j + 1] = arr[j]; recordSnapshot(arr, [j, j + 1], Array.from({length: i}, (_, k) => k), 'swap');
             j--;
         }
+        arr[j + 1] = temp; recordSnapshot(arr, [j + 1], Array.from({length: i + 1}, (_, k) => k), 'swap');
     }
 }
 
-function quickSort(arr, l, h) {
-    if (l >= h) return;
+function quickSort(arr, l, h, sorted = []) {
+    if (l >= h) { if(l === h) sorted.push(l); return; }
     let p = arr[h], i = l - 1;
-    recordSnapshot(arr, [h], 'pivot');
+    recordSnapshot(arr, [h], [...sorted], 'pivot');
     for (let j = l; j < h; j++) {
-        recordSnapshot(arr, [j, h], 'compare');
-        if (arr[j] < p) {
-            i++;
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-            recordSnapshot(arr, [i, j], 'swap');
-        }
+        recordSnapshot(arr, [j, h], [...sorted], 'compare');
+        if (arr[j] < p) { i++; [arr[i], arr[j]] = [arr[j], arr[i]]; recordSnapshot(arr, [i, j], [...sorted], 'swap'); }
     }
-    [arr[i + 1], arr[h]] = [arr[h], arr[i + 1]];
-    recordSnapshot(arr, [i + 1, h], 'swap');
-    quickSort(arr, l, i);
-    quickSort(arr, i + 2, h);
+    [arr[i + 1], arr[h]] = [arr[h], arr[i + 1]]; sorted.push(i + 1);
+    recordSnapshot(arr, [i + 1, h], [...sorted], 'swap');
+    quickSort(arr, l, i, sorted); quickSort(arr, i + 2, h, sorted);
 }
 
 function mergeSort(arr, l, r) {
     if (l >= r) return;
     let m = Math.floor((l + r) / 2);
-    mergeSort(arr, l, m);
-    mergeSort(arr, m + 1, r);
+    mergeSort(arr, l, m); mergeSort(arr, m + 1, r);
     let left = arr.slice(l, m + 1), right = arr.slice(m + 1, r + 1), i = 0, j = 0, k = l;
     while (i < left.length && j < right.length) {
-        recordSnapshot(arr, [k], 'compare');
-        arr[k] = (left[i] <= right[j]) ? left[i++] : right[j++];
-        recordSnapshot(arr, [k], 'swap');
-        k++;
+        recordSnapshot(arr, [k], [], 'compare');
+        arr[k] = (left[i] <= right[j]) ? left[i++] : right[j++]; recordSnapshot(arr, [k], [], 'swap'); k++;
     }
-    while (i < left.length) { arr[k] = left[i++]; recordSnapshot(arr, [k], 'swap'); k++; }
-    while (j < right.length) { arr[k] = right[j++]; recordSnapshot(arr, [k], 'swap'); k++; }
+    while (i < left.length) { arr[k] = left[i++]; recordSnapshot(arr, [k], [], 'swap'); k++; }
+    while (j < right.length) { arr[k] = right[j++]; recordSnapshot(arr, [k], [], 'swap'); k++; }
 }
 
 function heapSort(arr) {
-    const heapify = (size, idx) => {
-        let largest = idx, l = 2 * idx + 1, r = 2 * idx + 2;
-        if (l < size && arr[l] > arr[largest]) largest = l;
-        if (r < size && arr[r] > arr[largest]) largest = r;
-        if (largest !== idx) {
-            [arr[idx], arr[largest]] = [arr[largest], arr[idx]];
-            recordSnapshot(arr, [idx, largest], 'swap');
-            heapify(size, largest);
-        }
+    const heapify = (n, i, s) => {
+        let largest = i, l = 2 * i + 1, r = 2 * i + 2;
+        if (l < n && arr[l] > arr[largest]) largest = l;
+        if (r < n && arr[r] > arr[largest]) largest = r;
+        if (largest !== i) { [arr[i], arr[largest]] = [arr[largest], arr[i]]; recordSnapshot(arr, [i, largest], [...s], 'swap'); heapify(n, largest, s); }
     };
-    for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) heapify(arr.length, i);
+    for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) heapify(arr.length, i, []);
+    let sorted = [];
     for (let i = arr.length - 1; i > 0; i--) {
-        [arr[0], arr[i]] = [arr[i], arr[0]];
-        recordSnapshot(arr, [0, i], 'swap');
-        heapify(i, 0);
+        [arr[0], arr[i]] = [arr[i], arr[0]]; sorted.push(i);
+        recordSnapshot(arr, [0, i], [...sorted], 'swap');
+        heapify(i, 0, sorted);
     }
-}
-
-function countingSort(arr) {
-    let max = Math.max(...arr), count = new Array(max + 1).fill(0);
-    for (let x of arr) { recordSnapshot(arr, [], 'compare'); count[x]++; }
-    let k = 0;
-    for (let i = 0; i <= max; i++) {
-        while (count[i]-- > 0) {
-            arr[k] = i;
-            recordSnapshot(arr, [k], 'swap');
-            k++;
-        }
-    }
+    sorted.push(0); recordSnapshot(arr, [], [...sorted], 'end');
 }
 
 function shellSort(arr) {
-    for (let g = Math.floor(arr.length/2); g > 0; g = Math.floor(g/2)) {
+    for (let g = Math.floor(arr.length / 2); g > 0; g = Math.floor(g / 2)) {
         for (let i = g; i < arr.length; i++) {
             let j = i;
-            while (j >= g && arr[j] < arr[j-g]) {
-                recordSnapshot(arr, [j, j-g], 'compare');
-                [arr[j], arr[j-g]] = [arr[j-g], arr[j]];
-                recordSnapshot(arr, [j, j-g], 'swap');
-                j -= g;
-            }
+            while (j >= g && arr[j] < arr[j - g]) { recordSnapshot(arr, [j, j - g], [], 'compare'); [arr[j], arr[j - g]] = [arr[j - g], arr[j]]; recordSnapshot(arr, [j, j - g], [], 'swap'); j -= g; }
         }
+    }
+}
+
+function binarySearch(arr, target) {
+    let low = 0, high = arr.length - 1;
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+        recordSnapshot(arr, [mid], [], 'compare');
+        if (arr[mid] === target) { recordSnapshot(arr, [mid], [], 'found'); return; }
+        if (arr[mid] < target) low = mid + 1; else high = mid - 1;
+    }
+}
+
+function jumpSearch(arr, target) {
+    let n = arr.length, step = Math.floor(Math.sqrt(n)), prev = 0;
+    while (arr[Math.min(step, n) - 1] < target) { recordSnapshot(arr, [Math.min(step, n) - 1], [], 'compare'); prev = step; step += Math.floor(Math.sqrt(n)); if (prev >= n) return; }
+    while (arr[prev] < target) { recordSnapshot(arr, [prev], [], 'compare'); prev++; if (prev === Math.min(step, n)) return; }
+    if (arr[prev] === target) recordSnapshot(arr, [prev], [], 'found');
+}
+
+function linearSearch(arr, target) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === target) { recordSnapshot(arr, [i], [], 'found'); return; }
+        recordSnapshot(arr, [i], [], 'compare');
+    }
+}
+
+function interpolationSearch(arr, target) {
+    let low = 0, high = arr.length - 1;
+    while (low <= high && target >= arr[low] && target <= arr[high]) {
+        let pos = low + Math.floor(((high - low) / (arr[high] - arr[low])) * (target - arr[low]));
+        recordSnapshot(arr, [pos], [], 'compare');
+        if (arr[pos] === target) { recordSnapshot(arr, [pos], [], 'found'); return; }
+        if (arr[pos] < target) low = pos + 1; else high = pos - 1;
     }
 }
 
 function generateSteps(key) {
-    history = [];
-    let arr = [...algosData[key]];
-    recordSnapshot(arr, [], 'start');
+    history = []; let arr = [...algosData[key]];
     if (key === '1') bubbleSort(arr);
     else if (key === '2') selectionSort(arr);
     else if (key === '3') insertionSort(arr);
     else if (key === '4') quickSort(arr, 0, arr.length - 1);
     else if (key === '5') mergeSort(arr, 0, arr.length - 1);
     else if (key === '6') heapSort(arr);
-    else if (key === '7' || key === '8') countingSort(arr);
-    else if (key === '9') shellSort(arr);
-    recordSnapshot(arr, [], 'end');
+    else if (key === '7') shellSort(arr);
+    else if (key === 'b1') binarySearch(arr, 40);
+    else if (key === 'b2') jumpSearch(arr, 38);
+    else if (key === 'b3') interpolationSearch(arr, 30);
+    else if (key === 'b4') linearSearch(arr, 95);
+    if (!key.startsWith('b')) recordSnapshot(arr, [], Array.from({length: arr.length}, (_,k) => k), 'end');
 }
 
-function render(idx, k) {
+function render(idx, key) {
     if (idx < 0 || idx >= history.length) return;
-    const s = history[idx];
+    const s = history[idx], scale = 300 / Math.max(...algosData[key]);
     bars.forEach((b, i) => {
-        let hMult = (k === '9' ? 0.3 : (k === '7' || k === '8' ? 30 : 3));
-        b.style.height = (s.values[i] * hMult) + "px";
+        b.style.height = (s.values[i] * scale) + "px";
         nums[i].innerText = s.values[i];
-        if (s.active.includes(i)) {
-            if (s.type === 'swap') b.style.backgroundColor = red;
-            else if (s.type === 'pivot') b.style.backgroundColor = yellow;
-            else if (s.type === 'minFound') b.style.backgroundColor = orange;
-            else b.style.backgroundColor = blue;
-        } else if (s.type === 'end') {
-            b.style.backgroundColor = green;
-            nums[i].style.color = green;
+        b.style.opacity = "1";
+        if (s.type === 'found') {
+            if (s.active.includes(i)) { b.style.backgroundColor = green; nums[i].style.color = green; }
+            else b.style.opacity = "0.3";
+        } else if (s.sorted.includes(i)) {
+            b.style.backgroundColor = green; nums[i].style.color = green;
+        } else if (s.active.includes(i)) {
+            b.style.backgroundColor = (s.type === 'swap') ? red : (s.type === 'pivot' ? yellow : blue);
         } else {
-            b.style.backgroundColor = primary;
-            nums[i].style.color = primary;
+            b.style.backgroundColor = primary; nums[i].style.color = primary;
         }
     });
 }
@@ -178,21 +184,60 @@ function render(idx, k) {
 async function start(k) {
     if (currentAbortController) currentAbortController.abort();
     currentAbortController = new AbortController();
+    const signal = currentAbortController.signal;
+    currentAlgoKey = k;
+    window.history.pushState(null, '', `?=${k}`);
+    const container = document.querySelector('.container');
+    const newData = algosData[k];
+    if (container.children.length !== newData.length) {
+        container.innerHTML = newData.map(v => `<div class="bar-wrapper"><div class="num">${v}</div><div class="rec"></div></div>`).join('');
+    }
     bars = document.querySelectorAll('.rec'); nums = document.querySelectorAll('.num');
     generateSteps(k); currentStepIndex = 0; isPaused = false;
+    if (iconPlay) iconPlay.className = "fa-solid fa-pause";
     try {
         while (currentStepIndex < history.length) {
-            if (isPaused) { await sleep(100); continue; }
-            render(currentStepIndex, k); await sleep(600); currentStepIndex++;
+            if (signal.aborted) return;
+            while (isPaused) { if (signal.aborted) return; await sleep(100); }
+            render(currentStepIndex, k); await sleep(NUM_SLEEP); currentStepIndex++;
         }
-    } catch (e) {}
+        if (iconPlay) iconPlay.className = "fa-solid fa-play";
+    } catch (e) { }
 }
 
-window.addEventListener('keydown', (e) => {
-    if (algosData[e.key]) start(e.key);
-    if (e.code === "Space") isPaused = !isPaused;
-    if (e.key === "ArrowRight" && currentStepIndex < history.length - 1) render(++currentStepIndex, "1");
-    if (e.key === "ArrowLeft" && currentStepIndex > 0) render(--currentStepIndex, "1");
+btnPlay?.addEventListener('click', () => {
+    isPaused = !isPaused;
+    if (iconPlay) iconPlay.className = isPaused ? "fa-solid fa-play" : "fa-solid fa-pause";
 });
 
-document.addEventListener('DOMContentLoaded', () => start('1'));
+btnStop?.addEventListener('click', () => {
+    start(currentAlgoKey);
+});
+
+btnNext?.addEventListener('click', () => {
+    if (currentStepIndex < history.length - 1) {
+        isPaused = true;
+        if (iconPlay) iconPlay.className = "fa-solid fa-play";
+        render(++currentStepIndex, currentAlgoKey);
+    }
+});
+
+btnPrev?.addEventListener('click', () => {
+    if (currentStepIndex > 0) {
+        isPaused = true;
+        if (iconPlay) iconPlay.className = "fa-solid fa-play";
+        render(--currentStepIndex, currentAlgoKey);
+    }
+});
+
+window.addEventListener('keydown', (e) => {
+    if (e.code === "Space") btnPlay.click();
+    if (e.key === "ArrowRight") btnNext.click();
+    if (e.key === "ArrowLeft") btnPrev.click();
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    const p = window.location.search;
+    const id = p.startsWith('?=') ? p.split('=')[1] : '1';
+    if (algosData[id]) start(id);
+});

@@ -1,0 +1,100 @@
+Linear Search
+Bubble Sort
+Selection Sort
+Insertion Sort
+Big O Notation
+Space Complexity
+Recursion
+Array Traversing
+String Reversal
+Palindrome Check
+Fibonacci Sequence
+Factorial Calculation
+Stack Basics
+Queue Basics
+Linked List Basics
+Find Max/Min
+Set Operations
+Matrix Summation
+Two Pointers Technique
+Sliding Window Basics
+Hash Table Basics
+ASCII/Unicode Handling
+Bitwise AND/OR/XOR
+Euclidean Algorithm
+Linear Regression Basics
+Binary Search
+Merge Arrays
+Frequency Counter
+Remove Duplicates
+Circular Queue
+Quick Sort
+Merge Sort
+Heap Sort
+Binary Search Tree
+Breadth-First Searc
+Depth-First Search
+Dijkstra’s Algorithm
+Prim’s Algorit
+Kruskal’s Algorithm
+Memoization
+Tabulatio
+Backtracking
+Trie
+Doubly Linked List
+Shell Sort
+Bucket Sort
+Radix Sort
+Jump Search
+Interpolation Search
+Topological Sort
+Longest Common Subsequence
+Knapsack Problem
+Coin Change Problem
+Sieve of Eratosthenes
+LRU Cache Implementation
+Binary Tree Traversal
+Graph Cycle Detection
+Sudoku Solver
+Bit Manipulation
+Disjoint Set Union
+K-Nearest Neighbors
+K-Means Clustering
+Level Order Traversal
+Max Flow / Min Cut
+Flood Fill Algorithm
+Bellman-Ford Algorithm
+Floyd-Warshall
+A* Search Algorithm
+Segment Tree
+Fenwick Tree
+AVL Tree
+Red-Black Tree
+Knuth-Morris-Pratt
+Rabin-Karp
+Boyer-Moore
+Suffix Array
+Tarjan’s Algorithm
+Ford-Fulkerson
+Edmonds-Karp
+Johnson’s Algorithm
+Fast Fourier Transform
+Convex Hull
+Z-Algorithm
+Matrix Chain Multiplication
+Minimax Algorithm
+Bloom Filter
+Skip List
+B-Trees
+Levenshtein Distance
+Miller-Rabin Primality Test
+RSA Encryption Algorithm
+Huffman Coding
+Burrows-Wheeler Transform
+Hopcroft-Karp Algorithm
+Heavy-Light Decomposition
+Centroid Decomposition
+Persistent Data Structures
+PageRank Algorithm
+Gradient Descent
+Traveling Salesperson Problem

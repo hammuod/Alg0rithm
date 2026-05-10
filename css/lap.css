@@ -33,34 +33,81 @@ body{
     background-color: var(--bg-card);
     overflow: hidden;
 }
-
 body .container {
     display: flex;
     align-items: flex-end;
     gap: 13px;
-    height: auto !important;
+    height: 350px !important;
     min-height: 0 !important;
     width: min(100%, 900px);
     justify-content: center;
+    margin: 0 auto;
+    padding-bottom: 20px;
 }
-
 .bar-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 73px; 
 }
-
 .num {
-    color: var(--text-gray);
+    color: #6B7280;
     font-weight: 700;
     margin-bottom: 8px;
     transition: color 0.5s; 
+    transition: color 0.5s, height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, opacity 0.3s ease;
 }
-
 .rec {
     width: 83px;
-    background-color: var(--text-gray);
-    border-radius: 3px 3px 0 0;
-    transition: height 0.5s ease-in-out, background-color 0.5s;
+    background-color: #6B7280;
+    border-radius: 8px 8px 0 0;
+    transition: height 0.5s ease-in-out, background-color 0.5s ease, opacity 0.3s ease;
+    align-self: flex-end;transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, opacity 0.3s ease;
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.sidebar-toggle-btn {
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+}
+
+.sidebar-toggle-btn:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.accordion {
+    width: 300px;
+}
+
+.btn i {
+    border: none;
+    background-color: none;
+    font-size: 1rem;
+    transition: all 0.5s ease ;
+}
+
+.btn::hover {
+    color: var(--primary);
+}
+
+.buttons-con {
+    background-color: var(--bg-card);
+    padding: 5px 20px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 25px;
+    gap: 10px;
 }
