@@ -37,7 +37,7 @@ body .container {
     display: flex;
     align-items: flex-end;
     gap: 13px;
-    height: 350px !important;
+    height: 300px; 
     min-height: 0 !important;
     width: min(100%, 900px);
     justify-content: center;
@@ -83,13 +83,9 @@ body .container {
     left: 20px;
 }
 
-.sidebar-toggle-btn:focus {
-    box-shadow: none;
-    outline: none;
-}
 
 .accordion {
-    width: 300px;
+    width: 200px;
 }
 
 .btn i {
@@ -111,3 +107,89 @@ body .container {
     bottom: 25px;
     gap: 10px;
 }
+
+button:disabled {
+    color: var(--border);
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    pointer-events: none; 
+}
+
+.lap-sidebar {
+    width: 250px;
+    height: 100dvh;
+    overflow-y: auto;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border);
+}
+
+
+.sidebar-toggle-btn {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 1200;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    color: var(--text);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+    display: none;
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 1100;
+}
+
+.sidebar .text-muted {
+    color: var(--text-gray) !important;
+}
+
+.sidebar .active-link {
+
+}
+
+.sidebar .active-link {
+    background-color: var(--primary);
+    color: var(--bg-light);
+}
+
+.sidebar .accordion-button {
+    background-color: var(--bg-card);
+    color: var(--text);
+    border: none;
+    box-shadow: none;
+}
+
+.sidebar .accordion-button:not(.collapsed) {
+    background-color: var(--bg-card);
+    color: var(--primary);
+}
+
+.sidebar .accordion-item {
+    background-color: var(--bg-card);
+    border: none;
+}
+
+.sidebar a {
+    color: var(--text);
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: var(--primary);
+}
+
+.sidebar-toggle {
+    display: none;
+}
+

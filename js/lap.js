@@ -1,8 +1,5 @@
-const primary = "#6B7280", blue = "#4A90E2", green = "#4ade80", red = "#f87171", yellow = "#fbbf24";
-let NUM_SLEEP = 1000;
-const sleep = ms => new Promise(r => setTimeout(r, ms));
 let bars, nums, isPaused = false, history = [], currentStepIndex = -1, currentAbortController = null, currentAlgoKey = '1';
-
+let NUM_SLEEP = 1000;
 const algosData = {
     '1': [38, 27, 43, 3, 9, 82, 10],
     '2': [64, 25, 12, 22, 11, 90, 45],
@@ -16,16 +13,38 @@ const algosData = {
     'b3': [4, 7, 30, 37, 40, 55, 92],
     'b4': [2, 5, 64, 57, 68, 79, 95]
 };
-
+const primary = "#6B7280", blue = "#4A90E2", green = "#4ade80", red = "#f87171", yellow = "#fbbf24";
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 const btnPlay = document.querySelector('.btns');
 const btnStop = document.querySelector('.btnp');
 const btnNext = document.querySelector('.btnR');
 const btnPrev = document.querySelector('.btnL');
 const iconPlay = btnPlay?.querySelector('i');
 
-function recordSnapshot(arr, activeIndices = [], sortedIndices = [], type = 'normal') {
-    history.push({ values: [...arr], active: [...activeIndices], sorted: [...sortedIndices], type });
-}
+
+btnPlay?.addEventListener('click', () => {
+    isPaused = !isPaused;
+    if (iconPlay) iconPlay.className = isPaused ? "fa-solid fa-play" : "fa-solid fa-pause";
+});
+btnStop?.addEventListener('click', () => {
+    start(currentAlgoKey);
+});
+btnNext?.addEventListener('click', (e) => {
+    e.currentTarget.blur(); 
+    if (currentStepIndex < history.length - 1) {
+        isPaused = true;
+        if (iconPlay) iconPlay.className = "fa-solid fa-play";
+        render(++currentStepIndex, currentAlgoKey);
+    }
+});
+btnPrev?.addEventListener('click', (e) => {
+    e.currentTarget.blur();
+    if (currentStepIndex > 0) {
+        isPaused = true;
+        if (iconPlay) iconPlay.className = "fa-solid fa-play";
+        render(--currentStepIndex, currentAlgoKey);
+    }
+});
 
 function bubbleSort(arr) {
     for (let i = 0; i < arr.length; i++) {
@@ -35,18 +54,18 @@ function bubbleSort(arr) {
         }
     }
 }
-
 function selectionSort(arr) {
     for (let i = 0; i < arr.length; i++) {
+        recordSnapshot(arr, 'compare'); 
         let min = i;
         for (let j = i + 1; j < arr.length; j++) {
-            recordSnapshot(arr, [j, min], Array.from({length: i}, (_, k) => k), 'compare');
+            recordSnapshot(arr, [j], [min], 'compare'); 
             if (arr[j] < arr[min]) min = j;
         }
-        [arr[i], arr[min]] = [arr[min], arr[i]]; recordSnapshot(arr, [i, min], Array.from({length: i + 1}, (_, k) => k), 'swap');
+        [arr[i], arr[min]] = [arr[min], arr[i]]; 
+        recordSnapshot(arr, [i, min], [], 'swap');
     }
 }
-
 function insertionSort(arr) {
     for (let i = 0; i < arr.length; i++) {
         let temp = arr[i], j = i - 1;
@@ -58,20 +77,23 @@ function insertionSort(arr) {
         arr[j + 1] = temp; recordSnapshot(arr, [j + 1], Array.from({length: i + 1}, (_, k) => k), 'swap');
     }
 }
-
 function quickSort(arr, l, h, sorted = []) {
     if (l >= h) { if(l === h) sorted.push(l); return; }
     let p = arr[h], i = l - 1;
-    recordSnapshot(arr, [h], [...sorted], 'pivot');
+    recordSnapshot(arr, [h], [...sorted], 'pivot'); 
     for (let j = l; j < h; j++) {
         recordSnapshot(arr, [j, h], [...sorted], 'compare');
-        if (arr[j] < p) { i++; [arr[i], arr[j]] = [arr[j], arr[i]]; recordSnapshot(arr, [i, j], [...sorted], 'swap'); }
+        if (arr[j] < p) { 
+            i++; 
+            [arr[i], arr[j]] = [arr[j], arr[i]]; 
+            recordSnapshot(arr, [i, j], [...sorted], 'swap'); 
+        }
     }
-    [arr[i + 1], arr[h]] = [arr[h], arr[i + 1]]; sorted.push(i + 1);
+    [arr[i + 1], arr[h]] = [arr[h], arr[i + 1]]; 
+    sorted.push(i + 1);
     recordSnapshot(arr, [i + 1, h], [...sorted], 'swap');
     quickSort(arr, l, i, sorted); quickSort(arr, i + 2, h, sorted);
 }
-
 function mergeSort(arr, l, r) {
     if (l >= r) return;
     let m = Math.floor((l + r) / 2);
@@ -84,7 +106,6 @@ function mergeSort(arr, l, r) {
     while (i < left.length) { arr[k] = left[i++]; recordSnapshot(arr, [k], [], 'swap'); k++; }
     while (j < right.length) { arr[k] = right[j++]; recordSnapshot(arr, [k], [], 'swap'); k++; }
 }
-
 function heapSort(arr) {
     const heapify = (n, i, s) => {
         let largest = i, l = 2 * i + 1, r = 2 * i + 2;
@@ -101,7 +122,6 @@ function heapSort(arr) {
     }
     sorted.push(0); recordSnapshot(arr, [], [...sorted], 'end');
 }
-
 function shellSort(arr) {
     for (let g = Math.floor(arr.length / 2); g > 0; g = Math.floor(g / 2)) {
         for (let i = g; i < arr.length; i++) {
@@ -110,31 +130,27 @@ function shellSort(arr) {
         }
     }
 }
-
 function binarySearch(arr, target) {
     let low = 0, high = arr.length - 1;
     while (low <= high) {
         let mid = Math.floor((low + high) / 2);
-        recordSnapshot(arr, [mid], [], 'compare');
+        recordSnapshot(arr, [mid], [], 'pivot'); 
         if (arr[mid] === target) { recordSnapshot(arr, [mid], [], 'found'); return; }
         if (arr[mid] < target) low = mid + 1; else high = mid - 1;
     }
 }
-
 function jumpSearch(arr, target) {
     let n = arr.length, step = Math.floor(Math.sqrt(n)), prev = 0;
     while (arr[Math.min(step, n) - 1] < target) { recordSnapshot(arr, [Math.min(step, n) - 1], [], 'compare'); prev = step; step += Math.floor(Math.sqrt(n)); if (prev >= n) return; }
     while (arr[prev] < target) { recordSnapshot(arr, [prev], [], 'compare'); prev++; if (prev === Math.min(step, n)) return; }
     if (arr[prev] === target) recordSnapshot(arr, [prev], [], 'found');
 }
-
 function linearSearch(arr, target) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] === target) { recordSnapshot(arr, [i], [], 'found'); return; }
         recordSnapshot(arr, [i], [], 'compare');
     }
 }
-
 function interpolationSearch(arr, target) {
     let low = 0, high = arr.length - 1;
     while (low <= high && target >= arr[low] && target <= arr[high]) {
@@ -145,6 +161,10 @@ function interpolationSearch(arr, target) {
     }
 }
 
+
+function recordSnapshot(arr, activeIndices = [], sortedIndices = [], type = 'normal') {
+    history.push({ values: [...arr], active: [...activeIndices], sorted: [...sortedIndices], type });
+}
 function generateSteps(key) {
     history = []; let arr = [...algosData[key]];
     if (key === '1') bubbleSort(arr);
@@ -160,82 +180,70 @@ function generateSteps(key) {
     else if (key === 'b4') linearSearch(arr, 95);
     if (!key.startsWith('b')) recordSnapshot(arr, [], Array.from({length: arr.length}, (_,k) => k), 'end');
 }
-
 function render(idx, key) {
     if (idx < 0 || idx >= history.length) return;
-    const s = history[idx], scale = 300 / Math.max(...algosData[key]);
+    const s = history[idx];
+    const scale = 300 / Math.max(...algosData[key]);
     bars.forEach((b, i) => {
         b.style.height = (s.values[i] * scale) + "px";
         nums[i].innerText = s.values[i];
         b.style.opacity = "1";
         if (s.type === 'found') {
-            if (s.active.includes(i)) { b.style.backgroundColor = green; nums[i].style.color = green; }
-            else b.style.opacity = "0.3";
+            if (s.active.includes(i)) { 
+                b.style.backgroundColor = green; 
+                nums[i].style.color = green; 
+            } else {
+                b.style.opacity = "0.3";
+            }
         } else if (s.sorted.includes(i)) {
-            b.style.backgroundColor = green; nums[i].style.color = green;
+            b.style.backgroundColor = green; 
+            nums[i].style.color = green;
         } else if (s.active.includes(i)) {
             b.style.backgroundColor = (s.type === 'swap') ? red : (s.type === 'pivot' ? yellow : blue);
         } else {
-            b.style.backgroundColor = primary; nums[i].style.color = primary;
+            b.style.backgroundColor = primary; 
+            nums[i].style.color = primary;
         }
+        if (btnPrev) btnPrev.disabled = (idx === 0);
+        if (btnNext) btnNext.disabled = (idx === history.length - 1);
     });
 }
-
 async function start(k) {
     if (currentAbortController) currentAbortController.abort();
     currentAbortController = new AbortController();
     const signal = currentAbortController.signal;
     currentAlgoKey = k;
-    window.history.pushState(null, '', `?=${k}`);
-    const container = document.querySelector('.container');
     const newData = algosData[k];
-    if (container.children.length !== newData.length) {
-        container.innerHTML = newData.map(v => `<div class="bar-wrapper"><div class="num">${v}</div><div class="rec"></div></div>`).join('');
-    }
-    bars = document.querySelectorAll('.rec'); nums = document.querySelectorAll('.num');
-    generateSteps(k); currentStepIndex = 0; isPaused = false;
-    if (iconPlay) iconPlay.className = "fa-solid fa-pause";
-    try {
+    const container = document.querySelector('.container');
+    container.innerHTML = newData.map(v => `<div class="bar-wrapper"><div class="num">${v}</div><div class="rec"></div></div>`).join('');
+    bars = document.querySelectorAll('.rec'); 
+    nums = document.querySelectorAll('.num');
+    generateSteps(k); 
+    currentStepIndex = 0;
+    render(0, k);
+    isPaused = true; 
+    if (iconPlay) iconPlay.className = "fa-solid fa-play";
+    try {        
         while (currentStepIndex < history.length) {
             if (signal.aborted) return;
-            while (isPaused) { if (signal.aborted) return; await sleep(100); }
-            render(currentStepIndex, k); await sleep(NUM_SLEEP); currentStepIndex++;
+            while (isPaused) { 
+                if (signal.aborted) return; 
+                await sleep(100); 
+            }
+            render(currentStepIndex, k); 
+            await sleep(NUM_SLEEP); 
+            currentStepIndex++;
         }
-        if (iconPlay) iconPlay.className = "fa-solid fa-play";
-    } catch (e) { }
+    } catch (e) {}
 }
-
-btnPlay?.addEventListener('click', () => {
-    isPaused = !isPaused;
-    if (iconPlay) iconPlay.className = isPaused ? "fa-solid fa-play" : "fa-solid fa-pause";
-});
-
-btnStop?.addEventListener('click', () => {
-    start(currentAlgoKey);
-});
-
-btnNext?.addEventListener('click', () => {
-    if (currentStepIndex < history.length - 1) {
-        isPaused = true;
-        if (iconPlay) iconPlay.className = "fa-solid fa-play";
-        render(++currentStepIndex, currentAlgoKey);
-    }
-});
-
-btnPrev?.addEventListener('click', () => {
-    if (currentStepIndex > 0) {
-        isPaused = true;
-        if (iconPlay) iconPlay.className = "fa-solid fa-play";
-        render(--currentStepIndex, currentAlgoKey);
-    }
-});
-
 window.addEventListener('keydown', (e) => {
-    if (e.code === "Space") btnPlay.click();
+    if (e.code === "Space") {
+        e.preventDefault(); 
+        btnPlay.click();
+    }
     if (e.key === "ArrowRight") btnNext.click();
     if (e.key === "ArrowLeft") btnPrev.click();
 });
-
 window.addEventListener('DOMContentLoaded', () => {
     const p = window.location.search;
     const id = p.startsWith('?=') ? p.split('=')[1] : '1';
