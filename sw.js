@@ -3,11 +3,11 @@ const ASSETS = [
   '/entrnet.html',
   '/css/net.css',
   '/js/net.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap-grid.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/marked/16.3.0/lib/marked.esm.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css'
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
+  'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css',
+  'https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.0/github-markdown.min.css',
+  'https://cdn.jsdelivr.net/npm/marked@16.3.0/lib/marked.umd.min.js'
 ];
 
 

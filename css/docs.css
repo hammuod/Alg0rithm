@@ -197,3 +197,24 @@ p {
         padding: 74px 14px 20px;
     }
 }
+
+.curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    transform: translateY(100%);
+    z-index: -1; 
+    transition: transform 0.7s ease;
+}
+
+.curtain.active { 
+    transform: translateY(0%);
+    z-index: 9999; 
+}
+.curtain.exit { 
+    transform: translateY(-100%);
+    z-index: 9999; 
+}
