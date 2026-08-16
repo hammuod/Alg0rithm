@@ -109,6 +109,13 @@ body {
     }
 }
 
+/* Keep the nav on the same line as the logo for all desktop widths */
+@media (min-width: 992px) {
+    #headerContent {
+        flex-basis: auto !important;
+    }
+}
+
 @media (min-width: 992px) and (max-width: 1199.98px) and (min-height: 700px) {
     #headerContent {
         display: flex !important;
