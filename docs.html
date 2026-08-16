@@ -8,7 +8,6 @@
     <meta name="theme-color" content="#4A90E2">
     <meta property="og:title" content="Alg0rithm | learn ">
     <meta name="description" content="Explore the official Alg0rithm documentation. Learn how programming logic and algorithms work with interactive examples.">
-    <meta property="og:image" content="img/icon.png">
     <meta property="og:url" content="https://alg0rithm.dev/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
@@ -18,16 +17,20 @@
     <meta property="og:image:width" content="500">
     <meta property="og:image:height" content="500">
     <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="css/global.css">
     <link rel="canonical" href="https://alg0rithm.dev/" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="css/docs.css">
-    <link rel="stylesheet" href="css/responsev.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.0/github-markdown.min.css">
-    <link rel="icon" href="img/icon.png">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="node_modules/github-markdown-css/github-markdown.css">
     <title>Alg0rithm | Docs </title>
 </head>
 <body>
+    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark and light mode">
+        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-sun"></i>
+    </button>
     <button id="sidebarToggle" class="sidebar-toggle-btn" type="button" aria-label="Toggle docs sidebar">
       <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
@@ -45,10 +48,10 @@
               <div id="web" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                 <div class="accordion-body p-0">
 
-                  <a href="?=docs/bubble-sort" data-doc="web/bubble-sort" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Bubble Sort</a>
-                  <a href="?=docs/selection-sort" data-doc="web/selection-sort" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Selection Sort</a>
-                  <a href="?=docs/linear-search"  data-doc="web/linear-search" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Linear Search</a>
-                  <a href="?=docs/find-maximum"  data-doc="web/find-maximum" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Find Maximum</a>
+                  <a href="?=web/bubble-sort" data-doc="web/bubble-sort" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Bubble Sort</a>
+                  <a href="?=web/selection-sort" data-doc="web/selection-sort" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Selection Sort</a>
+                  <a href="?=web/linear-search"  data-doc="web/linear-search" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Linear Search</a>
+                  <a href="?=web/find-maximum"  data-doc="web/find-maximum" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Find Maximum</a>
 
 
                 </div>
@@ -61,7 +64,14 @@
         <div class="flex-grow-1 p-4 docs-app" id="app">
         </div>
       </div>
-    <script src="https://cdn.jsdelivr.net/npm/marked@16.3.0/lib/marked.umd.min.js"></script>
+    <script src="node_modules/marked/lib/marked.umd.js"></script>
     <script src="js/docs.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js').then(() => {
+            console.log('Service Worker registered');
+          }).catch((err) => console.log('SW registration failed:', err));
+        }
+    </script>
 </body>

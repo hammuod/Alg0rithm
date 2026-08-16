@@ -21,6 +21,56 @@ const btnNext = document.querySelector('.btnR');
 const btnPrev = document.querySelector('.btnL');
 const iconPlay = btnPlay?.querySelector('i');
 
+const currentPath = window.location.pathname;
+
+if (localStorage.getItem('transitioning') === 'start') {
+    const curtain = document.createElement('div');
+    curtain.classList.add('curtain');
+    curtain.style.transition = 'none';
+    curtain.classList.add('active');
+    document.body.appendChild(curtain);
+
+    setTimeout(() => {
+        curtain.style.transition = 'all 0.5s ease';
+        curtain.classList.remove('active');
+        curtain.classList.add('exit');
+        
+        setTimeout(() => {
+            curtain.remove();
+            localStorage.removeItem('transitioning');
+        }, 500); 
+    }, 100); 
+}
+
+document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', e => {
+        const targetHref = link.href;
+        
+        try {
+            const targetUrl = new URL(targetHref);
+            const isSamePage = targetUrl.pathname === currentPath;
+            const isAnchor = targetHref.includes('#');
+
+            if (targetHref && !isSamePage && !isAnchor && targetUrl.origin === window.location.origin) {
+                e.preventDefault();
+                localStorage.setItem('transitioning', 'start');
+                
+                const curtain = document.createElement('div');
+                curtain.classList.add('curtain');
+                document.body.appendChild(curtain);
+
+                setTimeout(() => {
+                    curtain.classList.add('active');
+                    setTimeout(() => {
+                        window.location.href = targetHref;
+                    }, 500);
+                }, 50);
+            }
+        } catch (err) {
+            return;
+        }
+    });
+});
 
 btnPlay?.addEventListener('click', () => {
     isPaused = !isPaused;
@@ -46,6 +96,28 @@ btnPrev?.addEventListener('click', (e) => {
     }
 });
 
+const themeBtn = document.getElementById('dark-mode-toggle');
+if (themeBtn) {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    } else {
+        document.body.classList.remove("dark-mode");
+    }
+    themeBtn.onclick = () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    };
+}
+
+const speedInput = document.getElementById('speed');
+const speedVal = document.getElementById('speed-val');
+if (speedInput) {
+    speedInput.addEventListener('input', () => {
+        NUM_SLEEP = Number(speedInput.value);
+        if (speedVal) speedVal.innerText = (NUM_SLEEP / 1000).toFixed(1) + 's';
+    });
+}
+
 function bubbleSort(arr) {
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr.length - i - 1; j++) {
@@ -56,7 +128,7 @@ function bubbleSort(arr) {
 }
 function selectionSort(arr) {
     for (let i = 0; i < arr.length; i++) {
-        recordSnapshot(arr, 'compare'); 
+        recordSnapshot(arr, [], [], 'compare'); 
         let min = i;
         for (let j = i + 1; j < arr.length; j++) {
             recordSnapshot(arr, [j], [min], 'compare'); 
@@ -64,6 +136,7 @@ function selectionSort(arr) {
         }
         [arr[i], arr[min]] = [arr[min], arr[i]]; 
         recordSnapshot(arr, [i, min], [], 'swap');
+        recordSnapshot(arr, [], Array.from({length: i + 1}, (_, k) => k), 'normal');
     }
 }
 function insertionSort(arr) {
@@ -100,17 +173,18 @@ function mergeSort(arr, l, r) {
     mergeSort(arr, l, m); mergeSort(arr, m + 1, r);
     let left = arr.slice(l, m + 1), right = arr.slice(m + 1, r + 1), i = 0, j = 0, k = l;
     while (i < left.length && j < right.length) {
-        recordSnapshot(arr, [k], [], 'compare');
+        recordSnapshot(arr, [k], [], 'compare', `Comparing ${left[i]} and ${right[j]}`);
         arr[k] = (left[i] <= right[j]) ? left[i++] : right[j++]; recordSnapshot(arr, [k], [], 'swap'); k++;
     }
     while (i < left.length) { arr[k] = left[i++]; recordSnapshot(arr, [k], [], 'swap'); k++; }
     while (j < right.length) { arr[k] = right[j++]; recordSnapshot(arr, [k], [], 'swap'); k++; }
+    recordSnapshot(arr, [], Array.from({length: r - l + 1}, (_, x) => l + x), 'normal');
 }
 function heapSort(arr) {
     const heapify = (n, i, s) => {
         let largest = i, l = 2 * i + 1, r = 2 * i + 2;
-        if (l < n && arr[l] > arr[largest]) largest = l;
-        if (r < n && arr[r] > arr[largest]) largest = r;
+        if (l < n && arr[l] > arr[largest]) { recordSnapshot(arr, [l, largest], [...s], 'compare'); largest = l; }
+        if (r < n && arr[r] > arr[largest]) { recordSnapshot(arr, [r, largest], [...s], 'compare'); largest = r; }
         if (largest !== i) { [arr[i], arr[largest]] = [arr[largest], arr[i]]; recordSnapshot(arr, [i, largest], [...s], 'swap'); heapify(n, largest, s); }
     };
     for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) heapify(arr.length, i, []);
@@ -134,7 +208,7 @@ function binarySearch(arr, target) {
     let low = 0, high = arr.length - 1;
     while (low <= high) {
         let mid = Math.floor((low + high) / 2);
-        recordSnapshot(arr, [mid], [], 'pivot'); 
+        recordSnapshot(arr, [mid], [], 'compare'); 
         if (arr[mid] === target) { recordSnapshot(arr, [mid], [], 'found'); return; }
         if (arr[mid] < target) low = mid + 1; else high = mid - 1;
     }
@@ -154,7 +228,12 @@ function linearSearch(arr, target) {
 function interpolationSearch(arr, target) {
     let low = 0, high = arr.length - 1;
     while (low <= high && target >= arr[low] && target <= arr[high]) {
+        if (arr[high] === arr[low]) {
+            if (arr[low] === target) { recordSnapshot(arr, [low], [], 'found'); }
+            return;
+        }
         let pos = low + Math.floor(((high - low) / (arr[high] - arr[low])) * (target - arr[low]));
+        if (Number.isNaN(pos) || pos < low || pos > high) return;
         recordSnapshot(arr, [pos], [], 'compare');
         if (arr[pos] === target) { recordSnapshot(arr, [pos], [], 'found'); return; }
         if (arr[pos] < target) low = pos + 1; else high = pos - 1;
@@ -162,11 +241,27 @@ function interpolationSearch(arr, target) {
 }
 
 
-function recordSnapshot(arr, activeIndices = [], sortedIndices = [], type = 'normal') {
-    history.push({ values: [...arr], active: [...activeIndices], sorted: [...sortedIndices], type });
+let comparisons = 0, swapCount = 0;
+function snapshotDesc(arr, activeIndices, sortedIndices, type) {
+    const v = (i) => arr[i];
+    if (type === 'end') return 'Array is sorted!';
+    if (type === 'swap') return activeIndices.length >= 2 ? `Swapping ${v(activeIndices[0])} and ${v(activeIndices[1])}` : `Placing ${v(activeIndices[0])}`;
+    if (type === 'pivot') return activeIndices.length ? `Pivot is ${v(activeIndices[0])}` : 'Picking pivot';
+    if (type === 'found') return activeIndices.length ? `Found ${v(activeIndices[0])}!` : 'Element not found';
+    if (type === 'compare') {
+        if (activeIndices.length >= 2) return `Comparing ${v(activeIndices[0])} and ${v(activeIndices[1])}`;
+        if (activeIndices.length === 1) return `Comparing ${v(activeIndices[0])} with target`;
+        return 'Starting new pass';
+    }
+    return sortedIndices.length ? `Marking ${sortedIndices.length} elements as sorted` : 'Ready';
+}
+function recordSnapshot(arr, activeIndices = [], sortedIndices = [], type = 'normal', desc = null) {
+    if (type === 'compare') comparisons++;
+    if (type === 'swap') swapCount++;
+    history.push({ values: [...arr], active: [...activeIndices], sorted: [...sortedIndices], type, desc: desc || snapshotDesc(arr, activeIndices, sortedIndices, type), comps: comparisons, swaps: swapCount });
 }
 function generateSteps(key) {
-    history = []; let arr = [...algosData[key]];
+    history = []; comparisons = 0; swapCount = 0; let arr = [...algosData[key]];
     if (key === '1') bubbleSort(arr);
     else if (key === '2') selectionSort(arr);
     else if (key === '3') insertionSort(arr);
@@ -183,6 +278,12 @@ function generateSteps(key) {
 function render(idx, key) {
     if (idx < 0 || idx >= history.length) return;
     const s = history[idx];
+    const actionText = document.getElementById('actionText');
+    const countComp = document.getElementById('countComp');
+    const countSwap = document.getElementById('countSwap');
+    if (actionText) actionText.innerHTML = `<span class="step-word">Step ${idx + 1}:</span> ${s.desc}`;
+    if (countComp) countComp.textContent = s.comps;
+    if (countSwap) countSwap.textContent = s.swaps;
     const scale = 300 / Math.max(...algosData[key]);
     bars.forEach((b, i) => {
         b.style.height = (s.values[i] * scale) + "px";
@@ -199,7 +300,9 @@ function render(idx, key) {
             b.style.backgroundColor = green; 
             nums[i].style.color = green;
         } else if (s.active.includes(i)) {
-            b.style.backgroundColor = (s.type === 'swap') ? red : (s.type === 'pivot' ? yellow : blue);
+            const c = (s.type === 'swap') ? red : (s.type === 'pivot' ? yellow : blue);
+            b.style.backgroundColor = c;
+            nums[i].style.color = c;
         } else {
             b.style.backgroundColor = primary; 
             nums[i].style.color = primary;
@@ -223,17 +326,20 @@ async function start(k) {
     render(0, k);
     isPaused = true; 
     if (iconPlay) iconPlay.className = "fa-solid fa-play";
+    let step = 1;
     try {        
-        while (currentStepIndex < history.length) {
+        while (step < history.length) {
             if (signal.aborted) return;
             while (isPaused) { 
                 if (signal.aborted) return; 
                 await sleep(100); 
             }
-            render(currentStepIndex, k); 
+            currentStepIndex = step;
+            render(step, k); 
             await sleep(NUM_SLEEP); 
-            currentStepIndex++;
+            step++;
         }
+        currentStepIndex = history.length - 1;
     } catch (e) {}
 }
 window.addEventListener('keydown', (e) => {
@@ -243,9 +349,30 @@ window.addEventListener('keydown', (e) => {
     }
     if (e.key === "ArrowRight") btnNext.click();
     if (e.key === "ArrowLeft") btnPrev.click();
+    if (e.key === "Escape") document.body.classList.remove('docs-sidebar-open');
+});
+
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', () => {
+        document.body.classList.toggle('docs-sidebar-open');
+    });
+}
+
+if (sidebarBackdrop) {
+    sidebarBackdrop.addEventListener('click', () => {
+        document.body.classList.remove('docs-sidebar-open');
+    });
+}
+
+document.querySelectorAll('#docsSidebar a').forEach(link => {
+    link.addEventListener('click', () => document.body.classList.remove('docs-sidebar-open'));
 });
 window.addEventListener('DOMContentLoaded', () => {
     const p = window.location.search;
     const id = p.startsWith('?=') ? p.split('=')[1] : '1';
     if (algosData[id]) start(id);
 });
+

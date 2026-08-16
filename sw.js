@@ -1,13 +1,15 @@
-const CACHE_NAME = 'entrnet-v1';
+const CACHE_NAME = 'alg0rithm-v3';
 const ASSETS = [
   '/entrnet.html',
+  '/css/global.css',
   '/css/net.css',
+  '/css/responsive.css',
   '/js/net.js',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
-  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
-  'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css',
-  'https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.0/github-markdown.min.css',
-  'https://cdn.jsdelivr.net/npm/marked@16.3.0/lib/marked.umd.min.js'
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.js',
+  'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css',
+  'https://cdn.jsdelivr.net/npm/github-markdown-css@5.9.0/github-markdown.min.css',
+  'https://cdn.jsdelivr.net/npm/marked@18.0.9/lib/marked.umd.min.js'
 ];
 
 

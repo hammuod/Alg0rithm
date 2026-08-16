@@ -33,11 +33,11 @@ function offline(){
 const btn = document.getElementById('dark-mode-toggle');
 
 if (btn) {
-    if(localStorage.getItem("theme") == "dark"){
-        document.body.classList.add("dark-mode")
-    }else{
-        document.body.classList.remove("dark-mode")
-    };
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    } else {
+        document.body.classList.remove("dark-mode");
+    }
 
     btn.onclick = () => {
         document.body.classList.toggle('dark-mode');

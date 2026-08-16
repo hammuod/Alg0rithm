@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.2.0",
+    "bootstrap": "^5.3.8",
+    "github-markdown-css": "^5.9.0",
     "marked": "^18.0.0"
+  },
+  "scripts": {
+    "start": "npx --yes serve .",
+    "check": "node tasks/test-algorithms.js"
   }
 }

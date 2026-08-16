@@ -137,13 +137,6 @@ body {
    4) Generic Tablet Range
    ------------------------------ */
 @media (min-width: 768px) and (max-width: 991.98px) {
-    #headerContent.show {
-        display: block !important;
-        width: 100%;
-        flex-basis: 100% !important;
-        order: 3;
-    }
-
     #header {
         display: flex !important;
         flex-direction: row !important;
@@ -167,9 +160,7 @@ body {
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        margin-left: auto !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
+        margin: 0 !important;
     }
 
     #headerContent:not(.show) {
@@ -177,28 +168,27 @@ body {
     }
 
     #headerContent.show {
+        display: block !important;
+        width: 100%;
+        flex-basis: 100% !important;
+        order: 3;
         margin-top: 8px;
         padding-top: 8px;
         border-top: 1px solid var(--border, rgba(0, 0, 0, 0.1));
     }
 
-    #headerContent nav {
+    #headerContent.show nav {
         width: 100%;
         margin-top: 0 !important;
     }
 
-    #headerContent .custom-nav-list {
+    #headerContent.show .custom-nav-list {
         width: 100%;
         align-items: flex-start !important;
         padding: 0 !important;
         margin: 0 !important;
-    }
-
-    .custom-nav-list {
         flex-direction: column;
-        align-items: flex-start;
         gap: 10px !important;
-        padding: 0;
     }
 
     .contenr-main,
@@ -247,8 +237,8 @@ body {
         flex-direction: column !important;
     }
 
-    .sidebar,
-    .sidebar.p-3 {
+    .docs-sidebar,
+    .docs-sidebar.p-3 {
         width: 100% !important;
         position: relative !important;
         top: auto !important;
@@ -268,9 +258,10 @@ body {
 }
 
 @media (max-width: 768px) and (min-height: 900px) {
-    .sidebar,
-    .sidebar.p-3 {
+    .docs-sidebar,
+    .docs-sidebar.p-3 {
         max-height: 35vh;
+        color: #333;
     }
 
     #app {
@@ -279,8 +270,8 @@ body {
 }
 
 @media (max-width: 768px) and (max-height: 780px) {
-    .sidebar,
-    .sidebar.p-3 {
+    .docs-sidebar,
+    .docs-sidebar.p-3 {
         max-height: 45vh;
     }
 
@@ -308,8 +299,8 @@ body {
         padding: 12px 10px !important;
     }
 
-    .sidebar,
-    .sidebar.p-3 {
+    .docs-sidebar,
+    .docs-sidebar.p-3 {
         max-height: 47vh;
     }
 }
@@ -325,8 +316,8 @@ body {
 }
 
 @media (max-height: 700px) and (max-width: 1024px) {
-    .sidebar,
-    .sidebar.p-3 {
+    .docs-sidebar,
+    .docs-sidebar.p-3 {
         max-height: 50vh;
     }
 }
@@ -356,6 +347,68 @@ body {
 
     textarea {
         width: 100% !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    /* Header: title on the LEFT, hamburger on the RIGHT */
+    #header {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 10px 14px !important;
+        gap: 12px !important;
+    }
+
+    #header .logo {
+        order: 1;
+        margin: 0 !important;
+        line-height: 1.2;
+        text-align: left !important;
+    }
+
+    #headerContent:not(.show) {
+        display: none !important;
+    }
+
+    #header .navbar-toggler {
+        order: 2;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+    }
+
+    #headerContent.show {
+        display: block !important;
+        width: 100%;
+        flex-basis: 100% !important;
+        order: 3;
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+    }
+
+    #headerContent.show nav {
+        width: 100%;
+        margin-top: 0 !important;
+    }
+
+    #headerContent.show .custom-nav-list {
+        width: 100%;
+        align-items: flex-start !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        flex-direction: column;
+        gap: 10px !important;
+    }
+
+    /* Sections take full viewport height */
+    section {
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
     }
 }
 
@@ -840,8 +893,8 @@ body {
         flex-direction: column !important;
     }
 
-    .sidebar,
-    .sidebar.p-3 {
+    .docs-sidebar,
+    .docs-sidebar.p-3 {
         max-height: 34vh !important;
         width: 100% !important;
     }
@@ -853,7 +906,7 @@ body {
 
 /* iPad landscape */
 @media (min-width: 1024px) and (max-width: 1366px) and (max-height: 1024px) and (orientation: landscape) {
-    .sidebar {
+    .docs-sidebar {
         width: 240px !important;
     }
 

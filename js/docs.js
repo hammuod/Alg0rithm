@@ -1,6 +1,14 @@
 
 const currentPath = window.location.pathname;
 
+const ALLOWED_DOCS = new Set([
+  'home.md',
+  'web/bubble-sort.md',
+  'web/selection-sort.md',
+  'web/linear-search.md',
+  'web/find-maximum.md'
+]);
+
 if (localStorage.getItem('transitioning') === 'start') {
     const curtain = document.createElement('div');
     curtain.classList.add('curtain');
@@ -14,8 +22,8 @@ if (localStorage.getItem('transitioning') === 'start') {
         curtain.classList.add('exit');
         
         setTimeout(() => {
-            curtain.style.zIndex = "-1";
-            localStorage.setItem('transitioning', null);
+            curtain.remove();
+            localStorage.removeItem('transitioning');
         }, 500); 
     }, 100); 
 }
@@ -57,17 +65,29 @@ async function loadDoc(path) {
   let mdPath = path.replace(/^\//, '').replace(/\/$/, '') || 'home.md';
   if (!mdPath.endsWith('.md')) mdPath += '.md';
 
+  if (!ALLOWED_DOCS.has(mdPath)) {
+    app.className = 'docs-app';
+    app.innerHTML = '<p>Page not found. 404</p>';
+    return;
+  }
+
   const finalUrl = `docs/${mdPath}`;
-  console.log("جاري التحميل من:", finalUrl);
 
   try {
     const res = await fetch(finalUrl);
-    if (!res.ok) throw new Error('404');
+    if (!res.ok) throw new Error('not-found');
     const text = await res.text();
+    if (typeof marked === 'undefined' || typeof marked.parse !== 'function') {
+      throw new Error('marked-missing');
+    }
     app.className = 'markdown-body';
     app.innerHTML = marked.parse(text);
   } catch (err) {
-    app.innerHTML = '<p>الصفحة غير موجودة. 404</p>';
+    if (err && err.message === 'marked-missing') {
+      app.innerHTML = '<p>Renderer error: the Markdown library is unavailable.</p>';
+    } else {
+      app.innerHTML = '<p>Page not found. 404</p>';
+    }
   }
 }
 
@@ -81,7 +101,16 @@ document.addEventListener('click', e => {
   document.body.classList.remove('docs-sidebar-open');
 });
 
-document.body.classList.add("dark-mode");
+const themeBtn = document.getElementById('dark-mode-toggle');
+if (themeBtn) {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+  themeBtn.onclick = () => {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  };
+}
 
 const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebarBackdrop = document.getElementById('sidebarBackdrop');
@@ -107,4 +136,3 @@ window.addEventListener('keydown', (e) => {
 // تحميل أول صفحة
 const param = new URLSearchParams(location.search).get('');
 loadDoc(param || 'home.md');
-

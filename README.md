@@ -6,7 +6,8 @@ Alg0rithm is a minimalist educational platform built to simplify programming log
 
 ## Philosophy & Core Values
 
-* **No Bloat:** Built from scratch without external libraries (No jQuery, No React).
+* **No Bloat:** No heavy frameworks (no jQuery, no React). Uses minimal helper
+  libraries (Bootstrap, Marked, Font Awesome) only where they directly improve UX.
 * **Performance:** High speed and optimized SEO (100/100 Lighthouse ready).
 * **Mastery:** Every line of code is reviewed 5 times to ensure perfection and security.
 * **Ethics:** Developed by a team of 5 Arab developers committed to the highest moral and technical standards.

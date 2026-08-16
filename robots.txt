@@ -3,6 +3,8 @@ User-agent: *
 
 Allow: /
 Allow: /docs/
+Allow: /lap/
+Allow: /entrnet/
 Allow: /js/
 Allow: /css/
 Allow: /imgs/
@@ -14,6 +16,8 @@ Disallow: /package.json
 Disallow: /package-lock.json
 Disallow: /LICENSE
 Disallow: /.gitignore
+Disallow: /sw.js
+Disallow: /tasks/
 
 
 Sitemap: https://alg0rithm.dev/sitemap.xml
