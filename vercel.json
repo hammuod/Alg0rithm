@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
@@ -13,7 +13,7 @@
       "destination": "/packages/packages.html"
     },
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
