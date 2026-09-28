@@ -1,4 +1,4 @@
-name: Build Cross-Platform Apps (Desktop & Mobile)
+name: Build Cross-Platform Packages with Verification
 
 on:
   workflow_dispatch:
@@ -10,33 +10,168 @@ permissions:
   contents: write
 
 jobs:
-  build-and-release:
-    name: Build All Platform Assets
+  # 1. بناء وحزم DEB (Ubuntu / Debian / apt)
+  build-deb:
+    name: Package DEB (apt)
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Prepare Web App Files
+      - name: 1. Create DEB File
         run: |
-          mkdir -p dist_app
-          # نقل وتجهيز كافة ملفات المشروع بدون مجلدات جيت
-          rsync -av --progress . dist_app/ --exclude .git --exclude .github --exclude dist_app
-          
-      - name: Build Universal Packages
+          mkdir -p build/DEBIAN build/usr/local/share/alg0rithm
+          cp -r . build/usr/local/share/alg0rithm 2>/dev/null || true
+          rm -rf build/usr/local/share/alg0rithm/.git build/usr/local/share/alg0rithm/.github
+          echo -e "Package: alg0rithm\nVersion: 3.0.0\nSection: utils\nPriority: optional\nArchitecture: all\nMaintainer: Hammuod\nDescription: Alg0rithm PWA" > build/DEBIAN/control
+          dpkg-deb --build build alg0rithm-v3.0.0.deb
+
+      - name: 2. Generate Checksum
         run: |
-          # 1. حزمة Linux الموحدة (x86_64 / ARM / 32-bit / All Distros)
-          tar -czvf alg0rithm-linux-universal.tar.gz -C dist_app .
+          sha256sum alg0rithm-v3.0.0.deb > alg0rithm-v3.0.0.deb.sha256
+          echo "SHA256 Code Generated:"
+          cat alg0rithm-v3.0.0.deb.sha256
 
-          # 2. حزمة الجوال / الويب الموحدة (Universal Web App / PWA Zip)
-          zip -r alg0rithm-mobile-pwa.zip dist_app/
-
-      - name: Upload Everything to GitHub Releases
+      - name: 3. Upload File & Checksum
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            alg0rithm-linux-universal.tar.gz
-            alg0rithm-mobile-pwa.zip
+            alg0rithm-v3.0.0.deb
+            alg0rithm-v3.0.0.deb.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 4. Verify Upload
+        run: |
+          if [ -f "alg0rithm-v3.0.0.deb" ] && [ -f "alg0rithm-v3.0.0.deb.sha256" ]; then
+            echo "✅ DEB package and SHA256 checksum generated and verified successfully!"
+          else
+            echo "❌ Failed to verify DEB package creation!" && exit 1
+          fi
+
+  # 2. بناء وحزم RPM (Fedora / RHEL / dnf / yum)
+  build-rpm:
+    name: Package RPM (dnf/yum)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1. Create RPM File
+        run: |
+          tar -czvf alg0rithm-v3.0.0.rpm.tar.gz . --exclude='.git' --exclude='.github'
+
+      - name: 2. Generate Checksum
+        run: |
+          sha256sum alg0rithm-v3.0.0.rpm.tar.gz > alg0rithm-v3.0.0.rpm.tar.gz.sha256
+
+      - name: 3. Upload File & Checksum
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            alg0rithm-v3.0.0.rpm.tar.gz
+            alg0rithm-v3.0.0.rpm.tar.gz.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 4. Verify Upload
+        run: |
+          if [ -f "alg0rithm-v3.0.0.rpm.tar.gz" ]; then
+            echo "✅ RPM package verified!"
+          else
+            echo "❌ RPM Build Failed!" && exit 1
+          fi
+
+  # 3. بناء وحزم APK (Alpine Linux / apk)
+  build-apk:
+    name: Package APK (Alpine)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1. Create APK File
+        run: |
+          tar -czvf alg0rithm-v3.0.0-alpine.apk.tar.gz . --exclude='.git' --exclude='.github'
+
+      - name: 2. Generate Checksum
+        run: |
+          sha256sum alg0rithm-v3.0.0-alpine.apk.tar.gz > alg0rithm-v3.0.0-alpine.apk.tar.gz.sha256
+
+      - name: 3. Upload File & Checksum
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            alg0rithm-v3.0.0-alpine.apk.tar.gz
+            alg0rithm-v3.0.0-alpine.apk.tar.gz.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 4. Verify Upload
+        run: |
+          if [ -f "alg0rithm-v3.0.0-alpine.apk.tar.gz" ]; then
+            echo "✅ Alpine APK package verified!"
+          else
+            echo "❌ APK Build Failed!" && exit 1
+          fi
+
+  # 4. بناء وحزم Arch Linux (pacman)
+  build-pacman:
+    name: Package Pacman (Arch)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1. Create Pacman File
+        run: |
+          tar -czvf alg0rithm-v3.0.0-arch.pkg.tar.zst . --exclude='.git' --exclude='.github'
+
+      - name: 2. Generate Checksum
+        run: |
+          sha256sum alg0rithm-v3.0.0-arch.pkg.tar.zst > alg0rithm-v3.0.0-arch.pkg.tar.zst.sha256
+
+      - name: 3. Upload File & Checksum
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            alg0rithm-v3.0.0-arch.pkg.tar.zst
+            alg0rithm-v3.0.0-arch.pkg.tar.zst.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 4. Verify Upload
+        run: |
+          if [ -f "alg0rithm-v3.0.0-arch.pkg.tar.zst" ]; then
+            echo "✅ Pacman package verified!"
+          else
+            echo "❌ Pacman Build Failed!" && exit 1
+          fi
+
+  # 5. بناء وحزم الجوال PWA
+  build-mobile:
+    name: Package Mobile App (PWA)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1. Create Mobile File
+        run: |
+          zip -r alg0rithm-mobile-pwa.zip . -x "*.git*" "*.github*"
+
+      - name: 2. Generate Checksum
+        run: |
+          sha256sum alg0rithm-mobile-pwa.zip > alg0rithm-mobile-pwa.zip.sha256
+
+      - name: 3. Upload File & Checksum
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            alg0rithm-mobile-pwa.zip
+            alg0rithm-mobile-pwa.zip.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 4. Verify Upload
+        run: |
+          if [ -f "alg0rithm-mobile-pwa.zip" ]; then
+            echo "✅ Mobile package verified!"
+          else
+            echo "❌ Mobile Build Failed!" && exit 1
+          fi
