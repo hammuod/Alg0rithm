@@ -1,0 +1,26 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "packages.alg0rithm.dev"
+        }
+      ],
+      "destination": "/packages/packages.html*"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "builds.alg0rithm.dev"
+        }
+      ],
+      "destination": "/builds/builds.html*"
+    }
+  ]
+}

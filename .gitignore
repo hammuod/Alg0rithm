@@ -1,0 +1,10 @@
+.vercel
+.env*.local
+node_modules/
+
+# Firebase credentials — NEVER commit these
+service-account.json
+service-account*.json
+*-service-account.json
+.firebase/
+tools/.credentials.json

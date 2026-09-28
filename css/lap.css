@@ -1,0 +1,334 @@
+
+body{
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
+    padding: 0 16px;
+    font-family: "cairo","firacode";
+    background-color: var(--text);
+    overflow: hidden;
+}
+.docs-layout {
+    height: 100vh;
+    height: 100dvh;
+}
+body .container {
+    display: flex;
+    align-items: flex-end;
+    gap: 13px;
+    height: 300px; 
+    min-height: 0 !important;
+    width: min(100%, 900px);
+    justify-content: center;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 83px; 
+}
+.num {
+    color: #6B7280;
+    font-weight: 700;
+    margin-bottom: 8px;
+    transition: color 0.5s, height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, opacity 0.3s ease;
+}
+.rec {
+    width: 83px;
+    background-color: #6B7280;
+    border-radius: 8px 8px 0 0;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, opacity 0.3s ease;
+    align-self: flex-end;
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.sidebar-toggle-btn {
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    height: 48px;
+    width: 48px;
+    background: var(--bg-card);
+    color: var(--test);
+}
+
+
+.accordion {
+    width: 200px;
+}
+
+.btn i {
+    color: var(--bg-card);
+    border: none;
+    background-color: none;
+    font-size: 1rem;
+    transition: all 0.5s ease ;
+}
+
+.btn:hover {
+    color: var(--primary);
+}
+
+.speed-control label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+}
+.speed-control input[type="range"] {
+    accent-color: var(--primary);
+    width: 140px;
+    cursor: pointer;
+}
+
+@media (max-width: 767.98px) {
+    .speed-control {
+        display: none;
+    }
+}
+
+.status-bar {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    max-width: calc(100vw - 28px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background-color: var(--test);
+    color: var(--bg-card);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-family: "cairo", "firacode";
+    font-size: 0.9rem;
+    z-index: 800;
+    min-height: 40px;
+}
+
+.status-bar .action-text {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60vw;
+}
+
+.status-bar .step-word {
+    color: #fbbf24;
+    font-weight: 700;
+}
+
+.buttons-con {
+    background-color: var(--test);
+    padding: 5px 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 900;
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--bg-card);
+    font-size: 0.85rem;
+    padding-left: 14px;
+    margin-left: 4px;
+}
+
+.speed-control label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.speed-control input[type="range"] {
+    accent-color: var(--primary);
+    width: 140px;
+    cursor: pointer;
+}
+
+button:disabled {
+    color: var(--border);
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    pointer-events: none; 
+}
+
+.lap-sidebar {
+    width: 250px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border);
+}
+
+@media (max-width: 991.98px) {
+    .lap-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: auto;
+        width: min(280px, 84vw);
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
+        z-index: 1300;
+        transform: translateX(-105%);
+        transition: transform 0.25s ease;
+        border-right: 1px solid var(--border);
+        border-left: none;
+        border-bottom: none;
+        margin: 0;
+    }
+
+    body.docs-sidebar-open .lap-sidebar {
+        transform: translateX(0);
+    }
+
+    body.docs-sidebar-open .sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+
+.sidebar-toggle-btn {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 1200;
+    width: 40px;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    color: var(--text);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 1100;
+}
+
+.sidebar .text-muted {
+    color: var(--text-gray) !important;
+}
+
+.sidebar .active-link {
+
+}
+
+.sidebar .active-link {
+    background-color: var(--primary);
+    color: var(--bg-light);
+}
+
+.sidebar .accordion-button {
+    background-color: var(--bg-card);
+    color: var(--text);
+    border: none;
+    box-shadow: none;
+}
+
+.sidebar .accordion-button:not(.collapsed) {
+    background-color: var(--bg-card);
+    color: var(--primary);
+}
+
+.sidebar .accordion-item {
+    background-color: var(--bg-card);
+    border: none;
+}
+
+.sidebar a {
+    color: var(--text);
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: var(--primary);
+}
+
+.sidebar .home-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: color 0.2s, border-color 0.2s;
+}
+.sidebar .home-link:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.sidebar a.active {
+    background-color: var(--bg-card);
+    color: var(--primary) !important;
+    font-weight: 600;
+    border-left: 3px solid var(--primary);
+    padding-left: calc(1.5rem - 3px) !important;
+}
+
+.sidebar-toggle {
+    display: none;
+}
+
+.curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    transform: translateY(100%);
+    z-index: -1; 
+    transition: transform 0.7s ease;
+}
+
+.curtain.active { 
+    transform: translateY(0%);
+    z-index: 9999; 
+}
+.curtain.exit { 
+    transform: translateY(-100%);
+    z-index: 9999; 
+}

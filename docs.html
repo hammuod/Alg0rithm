@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="JavaScript, Bubble Sort, Alg0rithm, lang by hammoud">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="theme-color" content="#4A90E2">
+    <meta property="og:title" content="Alg0rithm | learn ">
+    <meta name="description" content="Explore the official Alg0rithm documentation. Learn how programming logic and algorithms work with interactive examples.">
+    <meta property="og:url" content="https://alg0rithm.dev/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Alg0rithm">
+    <link rel="icon" href="imgs/tap.ico">
+    <meta property="og:image" content="imgs/icon.png">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="canonical" href="https://alg0rithm.dev/" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" onerror="this.onerror=null;this.href='libs/bootstrap/css/bootstrap.min.css';">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" onerror="this.onerror=null;this.href='libs/fontawesome/css/all.min.css';">
+    <link rel="stylesheet" href="css/docs.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.9.0/github-markdown.min.css" onerror="this.onerror=null;this.href='libs/github-markdown/github-markdown.min.css';">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github.min.css" onerror="this.onerror=null;this.href='libs/highlightjs/styles/github.min.css';">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css" id="hljs-dark" disabled onerror="this.onerror=null;this.href='libs/highlightjs/styles/github-dark.min.css';">
+    <title>Alg0rithm | Docs </title>
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                var dark = t === 'dark';
+                document.documentElement.classList.toggle('dark-mode', dark);
+                document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+                if (dark) document.documentElement.style.backgroundColor = '#121417';
+            } catch (e) {}
+        })();
+    </script>
+    <script>
+        window.__loadLocal = function (src) {
+            try {
+                if (document.readyState === 'loading') {
+                    document.write('<script src="' + src + '"><\/script>');
+                } else {
+                    var s = document.createElement('script');
+                    s.src = src;
+                    document.body.appendChild(s);
+                }
+            } catch (e) {}
+        };
+    </script>
+</head>
+<body>
+    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark and light mode">
+        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-sun"></i>
+    </button>
+    <button id="sidebarToggle" class="sidebar-toggle-btn" type="button" aria-label="Toggle docs sidebar">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="d-flex docs-layout">
+        <aside id="docsSidebar" class="sidebar p-3 docs-sidebar">
+          <a href="index.html" class="home-link"><i class="fa-solid fa-house"></i> Home</a>
+          <span class="small" style="color: var(--text-gray);">Alg0rithm@1.2</span>
+
+          <div class="docs-search-wrap">
+            <i class="fa-solid fa-magnifying-glass docs-search-icon" aria-hidden="true"></i>
+            <input type="search" id="docsSearch" class="docs-search" placeholder="Search algorithms..." autocomplete="off" aria-label="Search algorithms">
+          </div>
+          <div id="docsSearchEmpty" class="docs-search-empty" hidden>No algorithms match your search.</div>
+
+          <div class="accordion accordion-flush mt-2" id="sidebarAccordion">
+            <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
+            </div>
+          </div>
+        </aside>
+      
+        <!-- Main Content -->
+        <div class="flex-grow-1 p-4 docs-app" id="app">
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js" onerror="this.onerror=null;__loadLocal('libs/highlightjs/highlight.min.js');"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@18.0.9/lib/marked.umd.min.js" onerror="this.onerror=null;__loadLocal('libs/marked/marked.umd.min.js');"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" onerror="this.onerror=null;__loadLocal('libs/firebase/firebase-app-compat.js');"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js" onerror="this.onerror=null;__loadLocal('libs/firebase/firebase-database-compat.js');"></script>
+    <script src="js/docs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" onerror="this.onerror=null;__loadLocal('libs/bootstrap/js/bootstrap.min.js');"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js').then(() => {
+            console.log('Service Worker registered');
+          }).catch((err) => console.log('SW registration failed:', err));
+        }
+    </script>
+</body>

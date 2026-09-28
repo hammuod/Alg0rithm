@@ -1,0 +1,24 @@
+# خريطة الطريق لعناكب البحث في موقع Alg0rithm
+User-agent: *
+
+# المسارات المسموح بفهرستها وتتبعها
+Allow: /
+Allow: /lap.html
+Allow: /css/
+Allow: /js/
+Allow: /libs/
+
+# حظر الملفات الحساسة والبنية البرمجية الخلفية
+Disallow: /node_modules/
+Disallow: /vercel.json
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /LICENSE
+Disallow: /.gitignore
+Disallow: /.git/
+Disallow: /sw.js
+Disallow: /packages/
+Disallow: /builds/
+
+# رابط خريطة الموقع الرئيسية
+Sitemap: https://alg0rithm.dev/sitemap.xml

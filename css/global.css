@@ -1,0 +1,89 @@
+/* اعدادات */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Fira+Code:wght@300..700&display=swap');
+:root {
+    --primary: #4A90E2;
+    --bg-light: #FFFFFF;
+    --bg-card: #F8F9FA;
+    --text: #1B1C1D;
+    --text-gray: #6B7280;
+    --accent: #00B4D8;  
+    --border: rgba(0, 0, 0, 0.1); 
+    --primary-hover: #3b82f6;
+    --error-color: #ef4444;
+    --success-color: #10b981;
+    --transition: 0.3s ease;
+}
+
+.dark-mode {
+    --primary: #60a5fa;  
+    --bg-light: #121417; 
+    --bg-card: #1e2126;  
+    --text: #f0f2f5;
+    --text-gray: #b0bbca; 
+    --accent: #60a5fa;    
+    --border: rgba(255, 255, 255, 0.08); 
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+::selection {
+    background-color: var(--border);
+    color: var(--primary);
+}
+::-webkit-scrollbar {
+    background-color: var(--border);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 20px;
+}
+
+.dark-mode-toggle {
+    position: fixed;
+    top: 90%;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--text);
+    color: var(--text);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    z-index: 3000;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dark-mode-toggle:hover {
+    color: #435fff;
+    transform: scale(1.06);
+}
+.dark-mode-toggle:active {
+    transform: scale(0.97);
+}
+
+body, header, section, footer, div, a, button, input, textarea {
+    transition: background-color 0.8s ease, color 0.8s ease, transform 0.8s ease;
+}
+.dark-mode-toggle i {
+    font-size: 1rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.dark-mode-toggle .fa-sun { display: none; opacity: 0;color: #ffe643; transform: scale(0) rotate(-180deg); }
+.dark-mode-toggle .fa-moon { display: inline-block; opacity: 1;color: var(--bg-card); transform: scale(1) rotate(0); }
+.dark-mode .dark-mode-toggle .fa-sun { display: inline-block; opacity: 1;color: var(--bg-card); transform: scale(1) rotate(0); }
+.dark-mode .dark-mode-toggle .fa-moon { display: none; opacity: 0;color: #435fff; transform: scale(0) rotate(180deg); }
+
+

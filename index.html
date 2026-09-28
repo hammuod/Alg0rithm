@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Alg0rithm | learn ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" onerror="this.onerror=null;this.href='libs/fontawesome/css/all.min.css';"/>
+    <meta name="google-site-verification" content="-t5jlK0eA9YW9wjOhtuSDG3cad1OJIT4uK6WQuDTaso" />
+    <meta name="yandex-verification" content="ce2492cda2750abf" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" onerror="this.onerror=null;this.href='libs/bootstrap/css/bootstrap.min.css';">
+    <meta name="description" content="Alg0rithm: An interactive platform to learn programming logic and algorithms through visual tools and simplified documentation.">
+    <meta property="og:url" content="https://alg0rithm.dev/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Alg0rithm">
+    <link rel="icon" href="imgs/tap.ico">
+    <link rel="stylesheet" href="css/global.css">
+    <meta property="og:image" content="imgs/icon.png">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    <link rel="canonical" href="https://alg0rithm.dev/" />
+    <meta name="author" content="Hammoud (Baker)">
+    <script type="application/ld+json">{"@context": "https://schema.org","@type": "Course","name": "Alg0rithm - Master Algorithms","description": "Learn how to write, understand, and read algorithms for developers by Hammoud.","provider": {"@type": "Person","name": "Hammoud (Baker)","sameAs": "https://hammuod.github.io/Alg0rithm/"}}</script>
+    <meta name="copyright" content="Baker - AGPLv3 License">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <title>Alg0rithm | Home</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js').then(() => {
+            console.log('Service Worker registered');
+          }).catch((err) => console.log('SW registration failed:', err));
+        }
+    </script>
+    <script>
+        window.__loadLocal = function (src) {
+            try {
+                if (document.readyState === 'loading') {
+                    document.write('<script src="' + src + '"><\/script>');
+                } else {
+                    var s = document.createElement('script');
+                    s.src = src;
+                    document.body.appendChild(s);
+                }
+            } catch (e) {}
+        };
+    </script>
+</head>
+<body>
+
+    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark and light mode">
+        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-sun"></i>
+    </button>
+    <header id="header" class="d-flex flex-wrap align-items-center justify-content-between p-3 bg-white shadow-sm">
+        <button class="navbar-toggler d-lg-none custom-burger" type="button" data-bs-toggle="collapse" data-bs-target="#headerContent" aria-controls="headerContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h1 class="logo mb-0">Alg0rithm</h1>
+
+        <div class="collapse navbar-collapse d-lg-flex" id="headerContent">
+            <nav aria-label="Main Navigation" class="mx-auto">
+                <ul class="d-flex list-unstyled mb-0 gap-4 custom-nav-list flex-column flex-lg-row align-items-center">
+                    <li><a class="link" href="lap.html">lap</a></li>
+                    <li><a class="link" href="docs.html">learn</a></li>
+                    <li><a class="link" href="#about">About</a></li>
+                    <li><a class="link" href="#downloads">Downloads</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="main" role="main" class="main">
+        <div class="contenr-main">
+            <h2 class="titel-main">Algorithm</h2>
+            <p class="detales-main">Algorithm is a project to learn how to write, understand, and read algorithms for the normal developer, by Hammoud</p>
+            <button class="bin-main"><a href="docs.html" > go to learn </a></button>
+            <button class="bin-main"><a href="lap.html" > go to lap </a></button>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="contenr-about" >
+                <h2 class="titel-about">Algorithm website</h2>
+            <p class="detales-about">
+                Algorithms are step-by-step instructions we use to
+                solve problems or complete tasks.
+                By learning algorithms, you start thinking in a clear,
+                logical way before you write any code.
+                Here we focus on how to write, read, and understand algorithms in a
+                simple and practical style.
+            </p>
+        </div>
+    </section>
+
+    <section id="downloads" class="contact">
+        <h3 class="titel-contact">Downloads</h3>
+        <div class="contenr-contact">
+            <div class="downloads-grid">
+                <div class="download-card">
+                    <i class="fa-brands fa-windows download-icon"></i>
+                    <h4 class="download-name">Windows</h4>
+                    <a class="download-btn" href="https://builds.alg0rithm.dev/export/windows.exe">Download .exe</a>
+                </div>
+                <div class="download-card">
+                    <i class="fa-brands fa-android download-icon"></i>
+                    <h4 class="download-name">Android</h4>
+                    <a class="download-btn" href="https://builds.alg0rithm.dev/export/android.apk">Download .apk</a>
+                </div>
+                <div class="download-linux">
+                    <div class="download-card">
+                        <i class="fa-brands fa-linux download-icon"></i>
+                        <h4 class="download-name">Linux</h4>
+                    </div>
+                    <code class="download-cmd" title="اضغط لنسخ الأمر">curl -fsSL https://packages.alg0rithm/install.sh | bash</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" role="contentinfo" >
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">Alg0rithm</h3>
+                <p class="footer-desc">Learn to write and understand algorithms in a simple and practical way</p>
+            </div>
+            <div class="footer-links">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul>
+                    <li><a href="docs.html">Learn</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#downloads">Downloads</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4 class="footer-title">Contact Us</h4>
+                <a href="mailto:contact@alg0rithm.dev" class="footer-email">contact@alg0rithm.dev</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Alg0rithm — by Hammoud</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" onerror="this.onerror=null;__loadLocal('libs/emailjs/email.min.js');"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" onerror="this.onerror=null;__loadLocal('libs/bootstrap/js/bootstrap.min.js');"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
