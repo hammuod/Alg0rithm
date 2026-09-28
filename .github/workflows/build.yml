@@ -1,9 +1,10 @@
 name: Build Cross-Platform Apps (x86, x64, ARM, Android)
 
 on:
+  workflow_dispatch:
   push:
     tags:
-      - '*'
+      - 'build*'
 
 jobs:
   # 1. بناء نسخ الكمبيوتر (Linux x86_64, ARM64, 32-bit)
