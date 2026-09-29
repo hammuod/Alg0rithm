@@ -3,9 +3,12 @@ User-agent: *
 
 # المسارات المسموح بفهرستها وتتبعها
 Allow: /
+Allow: /index.html
 Allow: /lap.html
+Allow: /docs.html
 Allow: /css/
 Allow: /js/
+Allow: /i18n/
 Allow: /libs/
 
 # حظر الملفات الحساسة والبنية البرمجية الخلفية

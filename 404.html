@@ -1,34 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-lang="en" data-i18n-title="meta.notFound.title">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta name="theme-color" content="#4A90E2">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" onerror="this.onerror=null;this.href='libs/fontawesome/css/all.min.css';"/>
-    <link rel="canonical" href="https://alg0rithm.dev/" />
-    <link rel="stylesheet" href="css/404.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="icon" href="imgs/tap.ico">
-    <link rel="stylesheet" href="css/global.css">
-    <meta property="og:image" content="imgs/icon.png">
+    <meta name="description" data-i18n-content="meta.notFound.desc" content="The page you are looking for does not exist.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" onerror="this.onerror=null;this.href='/libs/fontawesome/css/all.min.css';"/>
+    <link rel="canonical" href="https://alg0rithm.dev/404" />
+    <link rel="stylesheet" href="/css/404.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/i18n.css">
+    <link rel="icon" href="/imgs/tap.ico">
+    <link rel="stylesheet" href="/css/global.css">
+    <meta property="og:image" content="/imgs/icon.png">
     <meta property="og:image:width" content="500">
     <meta property="og:image:height" content="500">
     <title>Alg0rithm | 404</title>
+    <script src="/js/i18n.js"></script>
 </head>
 <body>
 
-    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark and light mode">
+    <button class="dark-mode-toggle" id="dark-mode-toggle" data-i18n-attr="aria-label:ui.toggleTheme" aria-label="Toggle dark and light mode">
         <i class="fa-solid fa-moon"></i>
         <i class="fa-solid fa-sun"></i>
     </button>
 
     <main class="error-content">
-        <h1>404 - Page Not Found</h1>
-        <a class="back-link" href="index.html">Go back to home</a>
+        <h1 data-i18n="error.title">404 - Page Not Found</h1>
+        <a class="back-link" href="/index.html" data-i18n="error.backHome">Go back to home</a>
     </main>
 
-    <script src="js/net.js"></script>
+
     <script>
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/sw.js').then(() => {

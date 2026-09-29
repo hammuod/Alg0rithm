@@ -1,22 +1,39 @@
-const CACHE_NAME = 'alg0rithm-v7';
+const CACHE_NAME = 'alg0rithm-v9';
+
+// الصفحة الرئيسية المستخدمة عند فشل التنقل بدون اتصال
+function localeHome() {
+  return '/index.html';
+}
 
 // القائمة الموحدة والمحدثة لجميع أصول الموقع بمسارات التنظيم الجديدة
 const ASSETS = [
+  // الصفحات الرسمية ومبدّل اللغة (صفحة واحدة تتغير لغتها بدون إعادة تحميل)
   '/',
   '/index.html',
+  '/docs.html',
   '/lap.html',
-  
+  '/404.html',
+  '/js/i18n.js',
+
+  // ملفات الترجمة
+  '/i18n/en.json',
+  '/i18n/ar.json',
+  '/i18n/fr.json',
+
   // جميع ملفات التنسيق داخل مجلد css
   '/css/style.css',
   '/css/global.css',
-  '/css/net.css',
   '/css/responsive.css',
-  
+  '/css/docs.css',
+  '/css/lap.css',
+  '/css/404.css',
+  '/css/i18n.css',
+
   // جميع ملفات البرمجة داخل مجلد js
   '/js/index.js',
-  '/js/net.js',
+  '/js/docs.js',
   '/js/lap.js', // المحرك المحلي
-  
+
   // المكتبات والأيقونات المحلية
   '/libs/bootstrap/css/bootstrap.min.css',
   '/libs/bootstrap/js/bootstrap.min.js',
@@ -79,12 +96,45 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // ملفات الترجمة: الشبكة أولاً مع نسخة محفوظة (قد تتغير مع التحديثات)
+  if (requestUrl.includes('/i18n/') && requestUrl.endsWith('.json')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   // التصفح بين الصفحات
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      caches.match(event.request).then((cached) => {
-        return cached || fetch(event.request).catch(() => caches.match('/lap.html') || caches.match('/'));
-      })
+      (async () => {
+        const cached = await caches.match(event.request);
+        if (cached) return cached;
+
+        try {
+          const networkResponse = await fetch(event.request);
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+          }
+          return networkResponse;
+        } catch (err) {
+          // بدون اتصال: المسارات النظيفة (/docs) تُخدم من نسخة .html المخزنة
+          const path = new URL(requestUrl).pathname;
+          const html = path.endsWith('/') ? `${path}index.html` : `${path}.html`;
+          return (await caches.match(html))
+            || (await caches.match(localeHome()))
+            || caches.match('/');
+        }
+      })()
     );
     return;
   }

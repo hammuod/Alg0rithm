@@ -95,17 +95,19 @@ document.addEventListener("DOMContentLoaded", function() {
   form.addEventListener("submit", function(event) {
     event.preventDefault(); 
     
+    const t = (key, fallback) => (window.I18N && I18N.t(key)) || fallback;
+
     statusText.className = "status";
-    statusText.textContent = "Sending...";
+    statusText.textContent = t('form.sending', "Sending...");
 
     emailjs.sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, this)
       .then(function() {
         statusText.className = "status status--success";
-        statusText.textContent = "Message sent successfully!";
+        statusText.textContent = t('form.sent', "Message sent successfully!");
         form.reset();
       }, function(error) {
         statusText.className = "status status--error";
-        statusText.textContent = "Failed to send message. Please try again.";
+        statusText.textContent = t('form.failed', "Failed to send message. Please try again.");
         console.error('Error:', error);
       });
   });
@@ -170,7 +172,7 @@ document.querySelectorAll('.download-cmd').forEach(function (cmdEl) {
         const text = cmdEl.textContent.trim();
         const done = function () {
             const old = cmdEl.textContent;
-            cmdEl.textContent = 'Copied!';
+            cmdEl.textContent = (window.I18N && I18N.t('ui.copied')) || 'Copied!';
             setTimeout(function () { cmdEl.textContent = old; }, 1500);
         };
         if (navigator.clipboard && navigator.clipboard.writeText) {

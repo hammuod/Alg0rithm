@@ -1,26 +1,69 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/:path*",
+      "source": "/ar",
+      "destination": "/?lang=ar",
+      "permanent": true
+    },
+    {
+      "source": "/ar/:path*",
+      "destination": "/:path*?lang=ar",
+      "permanent": true
+    },
+    {
+      "source": "/fr",
+      "destination": "/?lang=fr",
+      "permanent": true
+    },
+    {
+      "source": "/fr/:path*",
+      "destination": "/:path*?lang=fr",
+      "permanent": true
+    },
+    {
+      "source": "/en",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "packages.alg0rithm.dev"
         }
       ],
-      "destination": "/packages/packages.html"
+      "destination": "/packages/packages",
+      "permanent": false
     },
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "builds.alg0rithm.dev"
         }
       ],
-      "destination": "/builds/builds.html"
+      "destination": "/builds/bulids",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/i18n/(en|ar|fr).json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ]
 }

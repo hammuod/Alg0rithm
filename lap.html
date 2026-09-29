@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-lang="en" data-i18n-title="meta.lap.title">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" onerror="this.onerror=null;this.href='libs/bootstrap/css/bootstrap.min.css';">
-    <link rel="stylesheet" href="css/lap.css">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" onerror="this.onerror=null;this.href='libs/fontawesome/css/all.min.css';">
-    <link rel="icon" href="imgs/tap.ico">
-    <meta property="og:image" content="imgs/icon.png">
+    <meta name="description" data-i18n-content="meta.lap.desc" content="Watch algorithms run step by step with interactive visual explanations of sorting, searching and data structures.">
+    <link id="bootstrap-css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" onerror="this.onerror=null;this.href='/libs/bootstrap/css/bootstrap.min.css';">
+    <link rel="stylesheet" href="/css/lap.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/i18n.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" onerror="this.onerror=null;this.href='/libs/fontawesome/css/all.min.css';">
+    <link rel="icon" href="/imgs/tap.ico">
+    <meta property="og:image" content="/imgs/icon.png">
     <meta property="og:image:width" content="500">
     <meta property="og:image:height" content="500">
-    <link rel="canonical" href="https://alg0rithm.dev/" />
+    <link rel="canonical" href="https://alg0rithm.dev/lap" />
     <meta name="theme-color" content="#4A90E2">
     <meta property="og:locale" content="en_US">
-    <title>Alg0rithm | Lap</title>
+    <title>Alg0rithm | Lab</title>
+    <script src="/js/i18n.js"></script>
     <script>
         (function () {
             try {
@@ -42,12 +45,12 @@
     </script>
 </head>
 <body>
-    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark and light mode">
+    <button class="dark-mode-toggle" id="dark-mode-toggle" data-i18n-attr="aria-label:ui.toggleTheme" aria-label="Toggle dark and light mode">
         <i class="fa-solid fa-moon"></i>
         <i class="fa-solid fa-sun"></i>
     </button>
 
-    <button id="sidebarToggle" class="sidebar-toggle-btn d-lg-none" type="button">
+    <button id="sidebarToggle" class="sidebar-toggle-btn d-lg-none" type="button" data-i18n-attr="aria-label:ui.toggleNav" aria-label="Toggle lab sidebar">
         <i class="fa fa-bars"></i>
     </button>
     
@@ -55,26 +58,26 @@
     
     <div class="d-flex docs-layout">
         <aside id="docsSidebar" class="sidebar p-3 lap-sidebar">
-            <a href="index.html" class="home-link"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="/index.html" class="home-link"><i class="fa-solid fa-house"></i> <span data-i18n="nav.home">Home</span></a>
             <div class="accordion accordion-flush mt-2" id="sidebarAccordion">
                 
                 <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
                     <h2 class="accordion-header">
                         <button class="accordion-button" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#sortingAlgos">
-                            Sorting 
+                            <span data-i18n="lap.sorting">Sorting</span>
                         </button>
                     </h2>
                     <div id="sortingAlgos" class="accordion-collapse collapse show" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body p-0">
-                            <a href="?=1" onclick="start('1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Bubble Sort</a>
-                            <a href="?=2" onclick="start('2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Selection Sort</a>
-                            <a href="?=3" onclick="start('3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Insertion Sort</a>
-                            <a href="?=4" onclick="start('4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Quick Sort</a>
-                            <a href="?=5" onclick="start('5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Merge Sort</a>
-                            <a href="?=6" onclick="start('6'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Heap Sort</a>
-                            <a href="?=7" onclick="start('7'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Shell Sort</a>
-                            <a href="?=8" onclick="start('8'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Bucket Sort</a>
-                            <a href="?=9" onclick="start('9'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Radix Sort</a>
+                            <a href="?=1" onclick="start('1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.bubble-sort">Bubble Sort</span></a>
+                            <a href="?=2" onclick="start('2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.selection-sort">Selection Sort</span></a>
+                            <a href="?=3" onclick="start('3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.insertion-sort">Insertion Sort</span></a>
+                            <a href="?=4" onclick="start('4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.quick-sort">Quick Sort</span></a>
+                            <a href="?=5" onclick="start('5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.merge-sort">Merge Sort</span></a>
+                            <a href="?=6" onclick="start('6'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.heap-sort">Heap Sort</span></a>
+                            <a href="?=7" onclick="start('7'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.shell-sort">Shell Sort</span></a>
+                            <a href="?=8" onclick="start('8'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.bucket-sort">Bucket Sort</span></a>
+                            <a href="?=9" onclick="start('9'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.radix-sort">Radix Sort</span></a>
                         </div>
                     </div>
                 </div>
@@ -82,15 +85,15 @@
                 <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#searchingAlgos">
-                            Searching 
+                            <span data-i18n="lap.searching">Searching</span>
                         </button>
                     </h2>
                     <div id="searchingAlgos" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body p-0">
-                            <a href="?=b1" onclick="start('b1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Binary Search</a>
-                            <a href="?=b2" onclick="start('b2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Jump Search</a>
-                            <a href="?=b3" onclick="start('b3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Interpolation Search</a>
-                            <a href="?=b4" onclick="start('b4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Linear Search</a>
+                            <a href="?=b1" onclick="start('b1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.binary-search">Binary Search</span></a>
+                            <a href="?=b2" onclick="start('b2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.jump-search">Jump Search</span></a>
+                            <a href="?=b3" onclick="start('b3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.interpolation-search">Interpolation Search</span></a>
+                            <a href="?=b4" onclick="start('b4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.linear-search">Linear Search</span></a>
                         </div>
                     </div>
                 </div>
@@ -98,18 +101,18 @@
                 <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#arrayOps">
-                            Array Operations 
+                            <span data-i18n="lap.arrayOps">Array Operations</span>
                         </button>
                     </h2>
                     <div id="arrayOps" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body p-0">
-                            <a href="?=a1" onclick="start('a1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Array Traversing</a>
-                            <a href="?=a2" onclick="start('a2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Find Max/Min</a>
-                            <a href="?=a3" onclick="start('a3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Two Pointers Technique</a>
-                            <a href="?=a4" onclick="start('a4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Sliding Window</a>
-                            <a href="?=a5" onclick="start('a5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Merge Arrays</a>
-                            <a href="?=a6" onclick="start('a6'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Frequency Counter</a>
-                            <a href="?=a7" onclick="start('a7'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Remove Duplicates</a>
+                            <a href="?=a1" onclick="start('a1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.array-traversing">Array Traversing</span></a>
+                            <a href="?=a2" onclick="start('a2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.find-maximum">Find Max/Min</span></a>
+                            <a href="?=a3" onclick="start('a3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.two-pointers-technique">Two Pointers Technique</span></a>
+                            <a href="?=a4" onclick="start('a4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.sliding-window-basics">Sliding Window</span></a>
+                            <a href="?=a5" onclick="start('a5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.merge-arrays">Merge Arrays</span></a>
+                            <a href="?=a6" onclick="start('a6'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.frequency-counter">Frequency Counter</span></a>
+                            <a href="?=a7" onclick="start('a7'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.remove-duplicates">Remove Duplicates</span></a>
                         </div>
                     </div>
                 </div>
@@ -117,19 +120,19 @@
                 <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#numberTheory">
-                            Number Theory 
+                            <span data-i18n="lap.numberTheory">Number Theory</span>
                         </button>
                     </h2>
                     <div id="numberTheory" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body p-0">
-                            <a href="?=a8" onclick="start('a8'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Sieve of Eratosthenes</a>
-                            <a href="?=n4" onclick="start('n4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Big O Notation</a>
-                            <a href="?=sc" onclick="start('sc'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Space Complexity</a>
-                            <a href="?=n1" onclick="start('n1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Fibonacci Sequence</a>
-                            <a href="?=n2" onclick="start('n2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Factorial Calculation</a>
-                            <a href="?=n3" onclick="start('n3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Euclidean Algorithm (GCD)</a>
-                            <a href="?=n5" onclick="start('n5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Bitwise AND/OR/XOR</a>
-                            <a href="?=rc" onclick="start('rc'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Recursion (Call Stack)</a>
+                            <a href="?=a8" onclick="start('a8'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.sieve-of-eratosthenes">Sieve of Eratosthenes</span></a>
+                            <a href="?=n4" onclick="start('n4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.big-o-notation">Big O Notation</span></a>
+                            <a href="?=sc" onclick="start('sc'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.space-complexity">Space Complexity</span></a>
+                            <a href="?=n1" onclick="start('n1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.fibonacci-sequence">Fibonacci Sequence</span></a>
+                            <a href="?=n2" onclick="start('n2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.factorial-calculation">Factorial Calculation</span></a>
+                            <a href="?=n3" onclick="start('n3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.euclidean-algorithm">Euclidean Algorithm (GCD)</span></a>
+                            <a href="?=n5" onclick="start('n5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.bitwise-and-or-xor">Bitwise AND/OR/XOR</span></a>
+                            <a href="?=rc" onclick="start('rc'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.recursion">Recursion (Call Stack)</span></a>
                         </div>
                     </div>
                 </div>
@@ -137,14 +140,14 @@
                 <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#stringAlgos">
-                            Strings 
+                            <span data-i18n="lap.strings">Strings</span>
                         </button>
                     </h2>
                     <div id="stringAlgos" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body p-0">
-                            <a href="?=s1" onclick="start('s1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">String Reversal</a>
-                            <a href="?=s2" onclick="start('s2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Palindrome Check</a>
-                            <a href="?=s3" onclick="start('s3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">ASCII/Unicode Handling</a>
+                            <a href="?=s1" onclick="start('s1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.string-reversal">String Reversal</span></a>
+                            <a href="?=s2" onclick="start('s2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.palindrome-check">Palindrome Check</span></a>
+                            <a href="?=s3" onclick="start('s3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.ascii-unicode-handling">ASCII/Unicode Handling</span></a>
                         </div>
                     </div>
                 </div>
@@ -152,17 +155,17 @@
                 <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#structAlgos">
-                            Data Structures 
+                            <span data-i18n="lap.dataStructures">Data Structures</span>
                         </button>
                     </h2>
                     <div id="structAlgos" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body p-0">
-                            <a href="?=d1" onclick="start('d1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Stack Basics</a>
-                            <a href="?=d2" onclick="start('d2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Queue Basics</a>
-                            <a href="?=d3" onclick="start('d3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Circular Queue</a>
-                            <a href="?=d4" onclick="start('d4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Hash Table Basics</a>
-                            <a href="?=d5" onclick="start('d5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Bloom Filter</a>
-                            <a href="?=d6" onclick="start('d6'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">LRU Cache</a>
+                            <a href="?=d1" onclick="start('d1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.stack-basics">Stack Basics</span></a>
+                            <a href="?=d2" onclick="start('d2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.queue-basics">Queue Basics</span></a>
+                            <a href="?=d3" onclick="start('d3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.circular-queue">Circular Queue</span></a>
+                            <a href="?=d4" onclick="start('d4'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.hash-table-basics">Hash Table Basics</span></a>
+                            <a href="?=d5" onclick="start('d5'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.bloom-filter">Bloom Filter</span></a>
+                            <a href="?=d6" onclick="start('d6'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.lru-cache-implementation">LRU Cache</span></a>
                         </div>
                     </div>
                 </div>
@@ -170,16 +173,16 @@
                 <div class="accordion-item" style="background-color: var(--bg-card); border: none;">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#dpAlgos">
-                            Dynamic Programming & Math 
+                            <span data-i18n="lap.dpMath">Dynamic Programming &amp; Math</span>
                         </button>
                     </h2>
                     <div id="dpAlgos" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body p-0">
-                            <a href="?=m1" onclick="start('m1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Memoization</a>
-                            <a href="?=m2" onclick="start('m2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Tabulation</a>
-                            <a href="?=m3" onclick="start('m3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Gradient Descent</a>
-                            <a href="?=o1" onclick="start('o1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Set Operations</a>
-                            <a href="?=o2" onclick="start('o2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);">Matrix Summation</a>
+                            <a href="?=m1" onclick="start('m1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.memoization">Memoization</span></a>
+                            <a href="?=m2" onclick="start('m2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.tabulation">Tabulation</span></a>
+                            <a href="?=m3" onclick="start('m3'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.gradient-descent">Gradient Descent</span></a>
+                            <a href="?=o1" onclick="start('o1'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.set-operations">Set Operations</span></a>
+                            <a href="?=o2" onclick="start('o2'); return false;" class="d-block text-decoration-none p-2 ps-4" style="color: var(--text-gray);"><span data-i18n="algo.matrix-summation">Matrix Summation</span></a>
                         </div>
                     </div>
                 </div>
@@ -188,7 +191,7 @@
         </aside>
     </div>
 
-    <div class="container">
+    <div class="container lab-canvas" dir="ltr" data-i18n-digits>
         <div class="bar-wrapper"><span class="num">38</span><div class="rec" style="height: 123px;"></div></div>
         <div class="bar-wrapper"><span class="num">27</span><div class="rec" style="height: 87px;"></div></div>
         <div class="bar-wrapper"><span class="num">43</span><div class="rec" style="height: 139px;"></div></div>
@@ -198,33 +201,33 @@
         <div class="bar-wrapper"><span class="num">10</span><div class="rec" style="height: 32px;"></div></div>
     </div>
 
-    <div class="status-bar">
-        <div class="action-text" id="actionText">Ready</div>
+    <div class="status-bar" dir="ltr">
+        <div class="action-text" id="actionText" data-i18n="lap.ready" data-i18n-digits>Ready</div>
     </div>
 
     <div class="buttons-con">
 
-        <button class="btnL btn">
+        <button class="btnL btn" aria-label="Previous step">
             <i class="fa-solid fa-arrow-left"></i>
         </button>
 
-        <button class="btns btn">
+        <button class="btns btn" aria-label="Play or pause">
             <i class="fa-solid fa-play"></i>
         </button>
 
-        <button class="btnR btn">
+        <button class="btnR btn" aria-label="Next step">
             <i class="fa-solid fa-arrow-right"></i>
         </button>
 
         <div class="speed-control">
-            <input type="range" id="speed" min="0" max="2000" step="100" value="1000">
+            <input type="range" id="speed" min="0" max="2000" step="100" value="1000" aria-label="Animation speed">
             <span id="speed-val" class="speed-val">1.0s</span>
         </div>
 
     </div>
 
-    <script src="js/lap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" onerror="this.onerror=null;__loadLocal('libs/bootstrap/js/bootstrap.min.js');"></script>
+    <script src="/js/lap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" onerror="this.onerror=null;__loadLocal('/libs/bootstrap/js/bootstrap.min.js');"></script>
     <script>
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/sw.js').then(() => {

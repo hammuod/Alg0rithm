@@ -3,10 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Builds | Under Construction</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="Alg0rithm build server: system builds and executable applications.">
+  <title>Builds | Alg0rithm</title>
+  <link rel="canonical" href="https://builds.alg0rithm.dev/" />
+  <link rel="icon" href="/imgs/tap.ico">
   <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/i18n.css">
   <link rel="stylesheet" href="/libs/fontawesome/css/all.min.css">
+  <link rel="preload" href="/i18n/en.json" as="fetch" crossorigin="same-origin">
+  <script src="/js/i18n.js"></script>
+  <script>
+    // The subdomain reaches this page through a redirect; keep the clean
+    // subdomain root in the address bar (canonical URL).
+    if (/^\/(packages\/packages|builds\/bulids)\/?$/.test(location.pathname)) {
+      history.replaceState(null, '', '/');
+    }
+  </script>
   <style>
+    .lang-switch, .i18n-veil { --bg-light: #161b22; --bg-card: #1c2128; --text: #e6edf3; --text-gray: #8b949e; --border: #30363d; }
     body {
       background-color: #0d1117;
       color: #c9d1d9;
@@ -63,10 +78,11 @@
     <div class="icon">
       <i class="fa-solid fa-screwdriver-wrench"></i>
     </div>
-    <h1>Build Server</h1>
-    <p>System builds and executable applications are currently being prepared for direct deployment. Stay tuned for official releases.</p>
-    <a href="https://alg0rithm.dev" class="btn">Back to Main Site</a>
+    <h1 data-i18n="builds.title">Build Server</h1>
+    <p data-i18n="builds.body">System builds and executable applications are currently being prepared for direct deployment. Stay tuned for official releases.</p>
+    <a href="https://alg0rithm.dev/" class="btn" data-i18n="builds.back">Back to Main Site</a>
   </div>
+
 
 </body>
 </html>

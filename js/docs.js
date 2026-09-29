@@ -1,6 +1,10 @@
 
 const currentPath = window.location.pathname;
 
+const ti18n = (key, fallback) => (window.I18N && I18N.t(key)) || fallback;
+const localizedDocTitle = (docId, fallbackTitle) => ti18n(`algo.${docId}`, fallbackTitle);
+const localizedCategory = (category) => ti18n(`docs.categories.${category}`, category);
+
 const firebaseConfig = {
   apiKey: "AIzaSyBlPyaRQRTNPM5Xzl-dT3mAKUNQAqWULVo",
   authDomain: "alg0rithm-databese.firebaseapp.com",
@@ -140,6 +144,7 @@ function renderSidebar(groups) {
 
   groups.forEach((group, gi) => {
     const gid = 'grp-' + gi;
+    const categoryLabel = localizedCategory(group.category);
     const item = document.createElement('div');
     item.className = 'accordion-item';
     item.style.backgroundColor = 'var(--bg-card)';
@@ -151,7 +156,7 @@ function renderSidebar(groups) {
       '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" ' +
       'data-bs-target="#' + gid + '" aria-expanded="false" aria-controls="' + gid + '" ' +
       'style="background-color: var(--bg-card); color: var(--text); border: none; box-shadow: none;">' +
-      escapeHtml(group.category) + '</button>';
+      escapeHtml(categoryLabel) + '</button>';
 
     const panel = document.createElement('div');
     panel.id = gid;
@@ -164,7 +169,8 @@ function renderSidebar(groups) {
 
     group.docs.forEach((doc) => {
       const a = document.createElement('a');
-      const acronym = doc.title
+      const title = localizedDocTitle(doc.docId, doc.title);
+      const acronym = title
         .split(/\s+/)
         .filter((w) => w.length > 1)
         .map((w) => w[0])
@@ -172,11 +178,11 @@ function renderSidebar(groups) {
         .toLowerCase();
       a.href = '?=web/' + doc.docId;
       a.setAttribute('data-doc', 'web/' + doc.docId);
-      a.setAttribute('data-label', doc.title);
-      a.setAttribute('data-hay', (doc.title + ' ' + doc.docId + ' ' + group.category + ' ' + acronym).toLowerCase());
+      a.setAttribute('data-label', title);
+      a.setAttribute('data-hay', [title, doc.title, doc.docId, group.category, acronym].join(' ').toLowerCase());
       a.className = 'd-block text-decoration-none p-2 ps-4';
       a.style.color = 'var(--text-gray)';
-      a.textContent = doc.title;
+      a.textContent = title;
       body.appendChild(a);
     });
 
@@ -186,6 +192,7 @@ function renderSidebar(groups) {
   });
 
   if (activeDocPath) highlightActiveDoc(activeDocPath);
+  container.dataset.rendered = '1';
   return true;
 }
 
@@ -532,9 +539,9 @@ async function loadDoc(path) {
     highlightActiveDoc(activeDocPath);
   } catch (err) {
     if (err && err.message === 'marked-missing') {
-      app.innerHTML = '<p>Renderer error: the Markdown library is unavailable.</p>';
+      app.innerHTML = '<p>' + escapeHtml(ti18n('docs.rendererError', 'Renderer error: the Markdown library is unavailable.')) + '</p>';
     } else {
-      app.innerHTML = '<p>Page not found. 404</p>';
+      app.innerHTML = '<p>' + escapeHtml(ti18n('docs.pageNotFound', 'Page not found. 404')) + '</p>';
     }
     highlightActiveDoc(null);
   }
@@ -570,7 +577,9 @@ document.addEventListener('click', e => {
   if (!a) return;
   e.preventDefault();
   const path = a.getAttribute('data-doc');
-  history.pushState(null, '', `?=${path}`);
+  // keep the ?lang= parameter so the link stays shareable in the same language
+  const langParam = new URLSearchParams(window.location.search).get('lang');
+  history.pushState(null, '', `?=${path}${langParam ? `&lang=${encodeURIComponent(langParam)}` : ''}`);
   loadDoc(path);
   document.body.classList.remove('docs-sidebar-open');
 });
@@ -637,22 +646,39 @@ if (docsSearch) {
   });
 }
 
-getSidebarGroups().then((groups) => {
-  if (renderSidebar(groups)) {
-    if (docsSearch && docsSearch.value) {
-      filterSidebar(docsSearch.value);
-    }
-  } else {
-    const container = document.getElementById('sidebarAccordion');
-    if (container) container.innerHTML = '';
-  }
-});
-
 (function showSidebarSkeleton() {
   const container = document.getElementById('sidebarAccordion');
   if (container) container.innerHTML = SKELETON_SIDEBAR_HTML;
 })();
 
-// تحميل أول صفحة
+// تحميل أول صفحة بعد جاهزية ملف اللغة (حتى تظهر العناوين مترجمة)
 const param = new URLSearchParams(location.search).get('');
-loadDoc(param || 'home.md');
+const i18nBoot = window.i18nReady || Promise.resolve();
+
+i18nBoot.then(() => {
+  getSidebarGroups().then((groups) => {
+    if (renderSidebar(groups)) {
+      if (docsSearch && docsSearch.value) {
+        filterSidebar(docsSearch.value);
+      }
+    } else {
+      const container = document.getElementById('sidebarAccordion');
+      if (container) container.innerHTML = '';
+    }
+  });
+
+  loadDoc(param || 'home.md');
+});
+
+// إعادة رسم الشريط الجانبي عند تغيير اللغة (بدون إعادة تحميل الصفحة)
+if (window.I18N && I18N.onChange) {
+  I18N.onChange(() => {
+    const container = document.getElementById('sidebarAccordion');
+    if (!container || container.dataset.rendered !== '1') return;
+    getSidebarGroups().then((groups) => {
+      if (renderSidebar(groups) && docsSearch && docsSearch.value) {
+        filterSidebar(docsSearch.value);
+      }
+    });
+  });
+}
