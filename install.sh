@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
-# Alg0rithm installer — detects distro & package manager, installs the right package.
+# Alg0rithm installer — installs the NATIVE desktop app only (Tauri).
+# Never opens a browser / website.
 set -euo pipefail
 
 YES=0
 OWNER="hammuod"
 REPO="Alg0rithm"
 APP_NAME="alg0rithm"
-WEB="https://alg0rithm.dev"
-API_DL="https://api.alg0rithm.dev/dl"
 GH_API="https://api.github.com/repos/${OWNER}/${REPO}/releases/latest"
-TMPDIR="${TMPDIR:-/tmp}"
-WORK="${TMPDIR}/alg0rithm-install-$$
-"
+WORK="${TMPDIR:-/tmp}/alg0rithm-install-$$"
 SUDO=()
 PKG_MANAGER=""
 
@@ -19,20 +16,18 @@ usage() {
   cat <<'EOF'
 Usage: install.sh [OPTIONS]
 
-Install Alg0rithm for your Linux distribution.
+Install the native Alg0rithm desktop app (Tauri window — not a website).
 
 Options:
-  -y, --yes     Non-interactive (accept all)
-  -h, --help    Show help
+  -y, --yes     Non-interactive
+  -h, --help    Help
 
-Examples:
   curl -fsSL https://api.alg0rithm.dev/install.sh | bash
   curl -fsSL https://api.alg0rithm.dev/install.sh | bash -s -- -y
 EOF
 }
 
 has_cmd() { command -v "$1" >/dev/null 2>&1; }
-
 info()  { printf '\033[1;34m[INFO]\033[0m %s\n' "$*"; }
 ok()    { printf '\033[1;32m[ OK ]\033[0m %s\n' "$*"; }
 warn()  { printf '\033[1;33m[WARN]\033[0m %s\n' "$*"; }
@@ -42,47 +37,30 @@ cleanup() { rm -rf "${WORK}" 2>/dev/null || true; }
 trap cleanup EXIT
 
 require_sudo() {
-  if [[ "${EUID}" -eq 0 ]]; then
-    SUDO=()
-    return
-  fi
+  if [[ "${EUID}" -eq 0 ]]; then SUDO=(); return; fi
   if ! has_cmd sudo; then
-    err "Need root. Install sudo or run as root."
+    err "Need root (sudo) to install system packages."
     exit 1
   fi
   SUDO=(sudo)
-  if [[ "${YES}" -eq 0 ]]; then
-    info "Some steps need administrator privileges (sudo)."
-  fi
 }
 
 ask_yes() {
   local q="$1"
   if [[ "${YES}" -eq 1 ]]; then return 0; fi
-  if [[ ! -r /dev/tty ]]; then
-    err "No TTY. Re-run with -y"
-    exit 1
-  fi
+  if [[ ! -r /dev/tty ]]; then err "No TTY — use -y"; exit 1; fi
   printf '%s [Y/n]: ' "${q}" >/dev/tty
-  local a
-  read -r a </dev/tty || true
-  case "${a}" in
-    ''|y|Y|yes|YES) return 0 ;;
-    *) return 1 ;;
-  esac
+  local a; read -r a </dev/tty || true
+  case "${a}" in ''|y|Y|yes|YES) return 0 ;; *) return 1 ;; esac
 }
 
 run() {
-  local desc="$1"
-  shift
+  local desc="$1"; shift
   echo
   info "${desc}"
   printf '  $ %s\n' "$*"
-  if [[ "${YES}" -eq 0 ]]; then
-    if ! ask_yes "Run this command?"; then
-      err "Aborted."
-      exit 1
-    fi
+  if [[ "${YES}" -eq 0 ]] && ! ask_yes "Run this command?"; then
+    err "Aborted."; exit 1
   fi
   "$@"
 }
@@ -102,10 +80,7 @@ detect_system() {
   if [[ -f /etc/os-release ]]; then
     # shellcheck disable=SC1091
     . /etc/os-release
-  else
-    NAME="Unknown"
-    ID="unknown"
-  fi
+  else NAME=Unknown; ID=unknown; fi
   detect_pm
   info "System: ${NAME:-?} (${ID:-?}) · package manager: ${PKG_MANAGER}"
 }
@@ -113,84 +88,83 @@ detect_system() {
 ensure_tools() {
   local need=()
   has_cmd curl || need+=(curl)
-  has_cmd file || need+=(file)
-  if [[ ${#need[@]} -eq 0 ]]; then return; fi
+  [[ ${#need[@]} -eq 0 ]] && return
   require_sudo
   case "${PKG_MANAGER}" in
-    apt) run "Install prerequisites" "${SUDO[@]}" apt-get install -y "${need[@]}" ;;
-    dnf) run "Install prerequisites" "${SUDO[@]}" dnf install -y "${need[@]}" ;;
-    yum) run "Install prerequisites" "${SUDO[@]}" yum install -y "${need[@]}" ;;
-    zypper) run "Install prerequisites" "${SUDO[@]}" zypper install -y "${need[@]}" ;;
-    apk) run "Install prerequisites" "${SUDO[@]}" apk add "${need[@]}" ;;
-    pacman) run "Install prerequisites" "${SUDO[@]}" pacman -Sy --noconfirm "${need[@]}" ;;
-    *) err "Missing: ${need[*]}. Install them and retry."; exit 1 ;;
+    apt) run "Install curl" "${SUDO[@]}" apt-get install -y curl ;;
+    dnf) run "Install curl" "${SUDO[@]}" dnf install -y curl ;;
+    yum) run "Install curl" "${SUDO[@]}" yum install -y curl ;;
+    zypper) run "Install curl" "${SUDO[@]}" zypper install -y curl ;;
+    apk) run "Install curl" "${SUDO[@]}" apk add curl ;;
+    pacman) run "Install curl" "${SUDO[@]}" pacman -Sy --noconfirm curl ;;
+    *) err "Install curl, then retry."; exit 1 ;;
   esac
 }
 
-# Pick best asset name pattern for this PM
-asset_patterns() {
-  case "${PKG_MANAGER}" in
-    apt)    echo '\.deb$' ;;
-    dnf|yum|zypper) echo '\.rpm$' ;;
-    pacman) echo 'arch|pkg\.tar' ;;
-    apk)    echo 'alpine' ;;
-    *)      echo 'linux-any|tarball|\.tar\.gz$' ;;
-  esac
-}
-
-fetch_release_json() {
-  curl -fsSL -H 'User-Agent: alg0rithm-install' -H 'Accept: application/vnd.github+json' "${GH_API}"
-}
-
-pick_asset_url() {
-  local json patterns name url
-  json="$(fetch_release_json)" || return 1
-  patterns="$(asset_patterns)"
-  # Prefer matching package; skip .sha256
-  while IFS= read -r line; do
-    name="${line%%|*}"
-    url="${line#*|}"
-    [[ "${name}" == *.sha256 ]] && continue
-    if echo "${name}" | grep -Eiq "${patterns}"; then
-      printf '%s\n' "${url}|${name}"
-      return 0
+# Prefer real native packages only (Tauri). Never "website launcher".
+list_release_assets() {
+  # prints: name|url per line
+  local json
+  json="$(curl -fsSL -H 'User-Agent: alg0rithm-install' -H 'Accept: application/vnd.github+json' "${GH_API}")" || return 1
+  # portable parse without jq
+  echo "${json}" | tr '{' '\n' | while read -r chunk; do
+    name="$(echo "${chunk}" | sed -n 's/.*"name": *"\([^"]*\)".*/\1/p' | head -1)"
+    url="$(echo "${chunk}" | sed -n 's/.*"browser_download_url": *"\([^"]*\)".*/\1/p' | head -1)"
+    if [[ -n "${name}" && -n "${url}" && "${name}" != *.sha256 ]]; then
+      printf '%s|%s\n' "${name}" "${url}"
     fi
-  done < <(echo "${json}" | grep -oE '"name": "[^"]+"|"browser_download_url": "[^"]+"' | \
-    paste - - | sed 's/.*"name": "\([^"]*\)".*"browser_download_url": "\([^"]*\)".*/\1|\2/' | sed 's/|/|/')
-
-  # fallback: any non-sha asset via python/node-free jq-less parse
-  local fallback
-  fallback="$(echo "${json}" | tr ',' '\n' | grep browser_download_url | head -1 | sed 's/.*"browser_download_url": *"//;s/".*//')"
-  if [[ -n "${fallback}" ]]; then
-    printf '%s\n' "${fallback}|package"
-    return 0
-  fi
-  return 1
+  done
 }
 
-download_package() {
-  mkdir -p "${WORK}"
-  local pair url name dest
-  info "Looking up latest release asset…"
-  if ! pair="$(pick_asset_url)"; then
-    warn "No GitHub release asset yet. Installing lightweight launcher only."
-    install_launcher_only
-    exit 0
+pick_asset() {
+  local assets lines name url
+  assets="$(list_release_assets)" || return 1
+  [[ -z "${assets}" ]] && return 1
+
+  # Priority by package manager
+  case "${PKG_MANAGER}" in
+    apt)
+      # Tauri deb often named like Alg0rithm_x.y.z_amd64.deb
+      echo "${assets}" | grep -iE '\.deb$' | head -1 && return 0
+      echo "${assets}" | grep -iE 'AppImage' | head -1 && return 0
+      ;;
+    dnf|yum|zypper)
+      echo "${assets}" | grep -iE '\.rpm$' | head -1 && return 0
+      echo "${assets}" | grep -iE 'AppImage' | head -1 && return 0
+      ;;
+    *)
+      echo "${assets}" | grep -iE 'AppImage' | head -1 && return 0
+      echo "${assets}" | grep -iE 'linux-bin|alg0rithm$' | head -1 && return 0
+      ;;
+  esac
+
+  # Last resort: AppImage anywhere
+  echo "${assets}" | grep -iE 'AppImage|\.deb$' | head -1
+}
+
+download() {
+  local pair name url dest
+  info "Looking up native package from GitHub Releases…"
+  if ! pair="$(pick_asset)"; then
+    err "No native package in the latest release yet."
+    err "Build first: https://api.alg0rithm.dev/build?platform=deb"
+    err "Or:        https://api.alg0rithm.dev/build?platform=appimage"
+    err "Releases:  https://github.com/${OWNER}/${REPO}/releases"
+    exit 1
   fi
-  url="${pair%%|*}"
-  name="${pair#*|}"
+  name="${pair%%|*}"
+  url="${pair#*|}"
+  mkdir -p "${WORK}"
   dest="${WORK}/${name}"
-  info "Downloading: ${name}"
-  curl -fsSL -o "${dest}" -L "${url}" \
-    || curl -fsSL -o "${dest}" -L "${API_DL}?platform=${PKG_MANAGER}" \
-    || { err "Download failed."; exit 1; }
+  info "Downloading native package: ${name}"
+  curl -fsSL -L -o "${dest}" "${url}"
   printf '%s\n' "${dest}"
 }
 
 install_deb() {
   local pkg="$1"
   require_sudo
-  run "Install DEB package" "${SUDO[@]}" dpkg -i "${pkg}" \
+  run "Install native .deb (Tauri app)" "${SUDO[@]}" dpkg -i "${pkg}" \
     || run "Fix dependencies" "${SUDO[@]}" apt-get install -f -y
 }
 
@@ -198,73 +172,68 @@ install_rpm() {
   local pkg="$1"
   require_sudo
   case "${PKG_MANAGER}" in
-    dnf) run "Install RPM" "${SUDO[@]}" dnf install -y "${pkg}" ;;
-    yum) run "Install RPM" "${SUDO[@]}" yum install -y "${pkg}" ;;
-    zypper) run "Install RPM" "${SUDO[@]}" zypper install -y "${pkg}" ;;
+    dnf) run "Install native .rpm" "${SUDO[@]}" dnf install -y "${pkg}" ;;
+    yum) run "Install native .rpm" "${SUDO[@]}" yum install -y "${pkg}" ;;
+    zypper) run "Install native .rpm" "${SUDO[@]}" zypper install -y "${pkg}" ;;
   esac
 }
 
-install_tarball() {
+install_appimage() {
   local pkg="$1"
-  local dest="${XDG_DATA_HOME:-$HOME/.local/share}/alg0rithm"
-  local bin="${XDG_BIN_HOME:-$HOME/.local/bin}"
-  mkdir -p "${dest}" "${bin}"
-  info "Extracting to ${dest}"
-  tar -xzf "${pkg}" -C "${dest}" --strip-components=1 2>/dev/null \
-    || tar -xzf "${pkg}" -C "${dest}"
-  cat > "${bin}/${APP_NAME}" << EOF
-#!/usr/bin/env bash
-DIR="${dest}"
-if [[ -f "\$DIR/app/index.html" ]]; then
-  exec xdg-open "\$DIR/app/index.html"
-elif [[ -f "\$DIR/bin/alg0rithm" ]]; then
-  exec "\$DIR/bin/alg0rithm"
-fi
-exec xdg-open "${WEB}"
-EOF
-  chmod +x "${bin}/${APP_NAME}"
-  ok "Launcher: ${bin}/${APP_NAME}"
-  if [[ ":$PATH:" != *":${bin}:"* ]]; then
-    warn "Add to PATH: export PATH=\"${bin}:\$PATH\""
-  fi
-}
-
-install_launcher_only() {
   local bin="${XDG_BIN_HOME:-$HOME/.local/bin}"
   local apps="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
-  mkdir -p "${bin}" "${apps}"
+  local share="${XDG_DATA_HOME:-$HOME/.local/share}/alg0rithm"
+  mkdir -p "${bin}" "${apps}" "${share}"
+  local target="${share}/Alg0rithm.AppImage"
+  cp "${pkg}" "${target}"
+  chmod +x "${target}"
+  # wrapper runs the AppImage binary — NOT a browser
   cat > "${bin}/${APP_NAME}" << EOF
 #!/usr/bin/env bash
-exec xdg-open "${WEB}" 2>/dev/null || echo "${WEB}"
+exec "${target}" "\$@"
 EOF
   chmod +x "${bin}/${APP_NAME}"
   cat > "${apps}/${APP_NAME}.desktop" << EOF
 [Desktop Entry]
 Type=Application
 Name=Alg0rithm
-Comment=Learn algorithms simply
+Comment=Learn algorithms — native app
 Exec=${bin}/${APP_NAME}
 Icon=alg0rithm
 Terminal=false
 Categories=Education;Development;
 StartupNotify=true
 EOF
-  ok "Launcher installed: ${bin}/${APP_NAME}"
-  ok "Desktop entry: ${apps}/${APP_NAME}.desktop"
+  ok "AppImage installed → ${target}"
+  ok "Command: ${bin}/${APP_NAME}"
   if [[ ":$PATH:" != *":${bin}:"* ]]; then
-    warn "Add to PATH: export PATH=\"${bin}:\$PATH\"  (or re-login)"
+    warn "Add to PATH: export PATH=\"${bin}:\$PATH\""
   fi
 }
 
-install_package_file() {
+install_binary() {
+  local pkg="$1"
+  local bin="${XDG_BIN_HOME:-$HOME/.local/bin}"
+  mkdir -p "${bin}"
+  cp "${pkg}" "${bin}/${APP_NAME}"
+  chmod +x "${bin}/${APP_NAME}"
+  ok "Binary installed → ${bin}/${APP_NAME}"
+}
+
+install_file() {
   local pkg="$1"
   case "${pkg}" in
     *.deb) install_deb "${pkg}" ;;
     *.rpm) install_rpm "${pkg}" ;;
-    *.tar.gz|*.tgz) install_tarball "${pkg}" ;;
+    *.AppImage|*.appimage) install_appimage "${pkg}" ;;
     *)
-      warn "Unknown package type: ${pkg}"
-      install_launcher_only
+      if file "${pkg}" 2>/dev/null | grep -qi 'executable\|ELF'; then
+        install_binary "${pkg}"
+      else
+        err "Not a native package: ${pkg}"
+        err "Rebuild Tauri packages, then re-run installer."
+        exit 1
+      fi
       ;;
   esac
 }
@@ -280,28 +249,24 @@ main() {
   done
 
   echo
-  info "Alg0rithm installer"
+  info "Alg0rithm native installer (Tauri — no browser)"
   detect_system
   ensure_tools
 
   local pkg
-  pkg="$(download_package)"
-  if [[ -n "${pkg}" && -f "${pkg}" ]]; then
-    install_package_file "${pkg}"
-  fi
-
-  # Desktop entry for system installs too
-  if has_cmd "${APP_NAME}" || [[ -x "${XDG_BIN_HOME:-$HOME/.local/bin}/${APP_NAME}" ]]; then
-    :
-  else
-    install_launcher_only
-  fi
+  pkg="$(download)"
+  install_file "${pkg}"
 
   echo
-  ok "Installation finished."
-  info "Run:  ${APP_NAME}"
-  info "Or open: ${WEB}"
-  info "Releases: https://github.com/${OWNER}/${REPO}/releases"
+  ok "Done. This is a real desktop window app."
+  if has_cmd "${APP_NAME}"; then
+    info "Start:  ${APP_NAME}"
+  elif [[ -x "${XDG_BIN_HOME:-$HOME/.local/bin}/${APP_NAME}" ]]; then
+    info "Start:  ${XDG_BIN_HOME:-$HOME/.local/bin}/${APP_NAME}"
+  else
+    info "Start from your app menu: Alg0rithm"
+  fi
+  info "Packages: https://github.com/${OWNER}/${REPO}/releases"
   echo
 }
 
