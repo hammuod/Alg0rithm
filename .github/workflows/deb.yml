@@ -7,30 +7,55 @@ permissions:
   contents: write
 jobs:
   build:
-    name: Build DEB
-    runs-on: ubuntu-latest
+    name: Build DEB (Tauri)
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - run: chmod +x scripts/build-deb.sh && ./scripts/build-deb.sh
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Linux deps (WebKit)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq \
+            libwebkit2gtk-4.1-dev build-essential curl wget file \
+            libxdo-dev libssl-dev libayatana-appindicator3-dev \
+            librsvg2-dev patchelf
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Tauri (deb)
+        run: |
+          chmod +x scripts/prepare-app.sh scripts/build-tauri.sh
+          ./scripts/prepare-app.sh
+          cd desktop && npm install --no-fund --no-audit
+          npx tauri build --bundles deb
+
+      - name: Collect artifacts
+        run: |
+          mkdir -p dist
+          find desktop/src-tauri/target/release/bundle -type f -name '*.deb' -exec cp {} dist/ \;
+          ls -lh dist || true
+
       - uses: actions/upload-artifact@v4
         with:
           name: package-deb
           path: dist/*
           if-no-files-found: warn
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'build' }}
           name: Alg0rithm packages
           body: |
-            Native packages for Alg0rithm.
+            Native **Tauri** desktop app (not a browser tab).
 
-            Install (Linux):
             ```bash
             curl -fsSL https://api.alg0rithm.dev/install.sh | bash
             ```
-
-            API: https://api.alg0rithm.dev/
           files: dist/*
           generate_release_notes: false
           make_latest: true

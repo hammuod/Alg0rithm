@@ -7,12 +7,28 @@ permissions:
   contents: write
 jobs:
   build:
-    name: Build Windows
+    name: Build Windows (Tauri)
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - shell: bash
-        run: chmod +x scripts/build-windows.sh && ./scripts/build-windows.sh
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build Tauri Windows
+        shell: bash
+        run: |
+          chmod +x scripts/prepare-app.sh
+          ./scripts/prepare-app.sh
+          cd desktop && npm install --no-fund --no-audit
+          npx tauri build --bundles nsis,msi
+      - name: Collect
+        shell: bash
+        run: |
+          mkdir -p dist
+          find desktop/src-tauri/target/release/bundle -type f \( -name '*.exe' -o -name '*.msi' -o -name '*.nsis.zip' \) -exec cp {} dist/ \; 2>/dev/null || true
+          find desktop/src-tauri/target/release -maxdepth 1 -name 'alg0rithm.exe' -exec cp {} dist/Alg0rithm.exe \; 2>/dev/null || true
+          ls -lh dist || true
       - uses: actions/upload-artifact@v4
         with:
           name: package-windows
@@ -24,14 +40,7 @@ jobs:
           tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'build' }}
           name: Alg0rithm packages
           body: |
-            Native packages for Alg0rithm.
-
-            Install (Linux):
-            ```bash
-            curl -fsSL https://api.alg0rithm.dev/install.sh | bash
-            ```
-
-            API: https://api.alg0rithm.dev/
+            Native **Tauri** desktop app (not a browser tab).
           files: dist/*
           generate_release_notes: false
           make_latest: true
