@@ -16,9 +16,14 @@ jobs:
         with:
           name: package-appimage
           path: dist/*
-      - if: startsWith(github.ref, 'refs/tags/')
+          if-no-files-found: warn
+      - name: Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'build' }}
+          name: Packages (${{ github.ref_type == 'tag' && github.ref_name || 'build' }})
           files: dist/*
+          generate_release_notes: true
+          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
