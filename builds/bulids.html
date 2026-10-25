@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Builds | Under Construction</title>
+  <title>Builds | Alg0rithm</title>
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/libs/fontawesome/css/all.min.css">
   <style>
@@ -17,31 +17,20 @@
       min-height: 100vh;
       margin: 0;
       text-align: center;
+      padding: 1rem;
     }
     .card {
       background: #161b22;
       border: 1px solid #30363d;
       border-radius: 12px;
       padding: 40px 30px;
-      max-width: 480px;
+      max-width: 520px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
-    .icon {
-      font-size: 3rem;
-      color: #d29922;
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-      color: #f0f6fc;
-    }
-    p {
-      color: #8b949e;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
+    .icon { font-size: 3rem; color: #58a6ff; margin-bottom: 20px; }
+    h1 { font-size: 1.6rem; margin-bottom: 12px; color: #f0f6fc; }
+    p { color: #8b949e; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+    .links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
     .btn {
       display: inline-block;
       background-color: #238636;
@@ -50,23 +39,38 @@
       padding: 10px 20px;
       border-radius: 6px;
       font-weight: 600;
-      transition: background 0.2s;
     }
-    .btn:hover {
-      background-color: #2ea043;
-    }
+    .btn:hover { background-color: #2ea043; }
+    .btn-secondary { background-color: #21262d; border: 1px solid #30363d; }
+    .btn-secondary:hover { background-color: #30363d; }
+    code { background: #21262d; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
   </style>
 </head>
 <body>
-
   <div class="card">
-    <div class="icon">
-      <i class="fa-solid fa-screwdriver-wrench"></i>
+    <div class="icon"><i class="fa-solid fa-box-open"></i></div>
+    <h1>Alg0rithm Builds</h1>
+    <p>
+      Native packages are built from this project’s code in
+      <strong>alg0rithm-app</strong>.
+      Trigger tag: <code>build</code>
+    </p>
+    <div class="links">
+      <a class="btn" href="https://github.com/hammuod/alg0rithm-app/releases/latest">
+        Latest releases (test downloads)
+      </a>
+      <a class="btn btn-secondary" href="https://github.com/hammuod/alg0rithm-app/actions">
+        CI / Actions (run workflows)
+      </a>
+      <a class="btn btn-secondary" href="https://github.com/hammuod/alg0rithm-app">
+        alg0rithm-app repository
+      </a>
     </div>
-    <h1>Build Server</h1>
-    <p>System builds and executable applications are currently being prepared for direct deployment. Stay tuned for official releases.</p>
-    <a href="https://alg0rithm.dev" class="btn">Back to Main Site</a>
+    <p style="font-size:0.85rem;">
+      Linux install:<br>
+      <code>curl -fsSL https://raw.githubusercontent.com/hammuod/alg0rithm-app/main/install.sh | bash</code>
+    </p>
+    <a href="https://alg0rithm.dev" class="btn btn-secondary">Back to Main Site</a>
   </div>
-
 </body>
 </html>
