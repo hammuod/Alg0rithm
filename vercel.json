@@ -3,24 +3,28 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "packages.alg0rithm.dev"
-        }
-      ],
-      "destination": "/packages/packages.html"
+      "source": "/install.sh",
+      "has": [{ "type": "host", "value": "packages.alg0rithm.dev" }],
+      "destination": "/api/install"
     },
     {
       "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "builds.alg0rithm.dev"
-        }
-      ],
-      "destination": "/builds/builds.html"
+      "has": [{ "type": "host", "value": "packages.alg0rithm.dev" }],
+      "destination": "/packages/packages.html"
+    },
+    {
+      "source": "/export/:file",
+      "has": [{ "type": "host", "value": "builds.alg0rithm.dev" }],
+      "destination": "/api/dl?platform=:file"
+    },
+    {
+      "source": "/dl/:platform",
+      "destination": "/api/dl?platform=:platform"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "builds.alg0rithm.dev" }],
+      "destination": "/builds/bulids.html"
     }
   ]
 }

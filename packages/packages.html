@@ -3,70 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Packages | Under Construction</title>
+  <title>Packages | Alg0rithm</title>
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/libs/fontawesome/css/all.min.css">
   <style>
-    body {
-      background-color: #0d1117;
-      color: #c9d1d9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
-    .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      padding: 40px 30px;
-      max-width: 480px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-    .icon {
-      font-size: 3rem;
-      color: #58a6ff;
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-      color: #f0f6fc;
-    }
-    p {
-      color: #8b949e;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-    .btn {
-      display: inline-block;
-      background-color: #238636;
-      color: #ffffff;
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .btn:hover {
-      background-color: #2ea043;
-    }
+    body { background:#0d1117; color:#c9d1d9; font-family:system-ui,sans-serif; margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1rem; }
+    .card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:2rem; max-width:560px; width:100%; }
+    h1 { color:#f0f6fc; margin:0 0 0.5rem; }
+    p { color:#8b949e; line-height:1.6; }
+    code { display:block; background:#21262d; padding:12px; border-radius:8px; overflow-x:auto; margin:1rem 0; font-size:0.85rem; }
+    a.btn { display:inline-block; background:#238636; color:#fff; text-decoration:none; padding:10px 16px; border-radius:6px; font-weight:600; margin:4px 4px 4px 0; }
+    a.btn2 { background:#21262d; border:1px solid #30363d; }
   </style>
 </head>
 <body>
-
   <div class="card">
-    <div class="icon">
-      <i class="fa-solid fa-boxes-packing"></i>
-    </div>
-    <h1>Package Repository</h1>
-    <p>Alg0rithm package repository and software libraries are currently under construction. They will be available for download in the upcoming release.</p>
-    <a href="https://alg0rithm.dev" class="btn">Back to Main Site</a>
+    <h1><i class="fa-solid fa-boxes-packing"></i> Alg0rithm Packages</h1>
+    <p>Linux one-line install (from this subdomain):</p>
+    <code>curl -fsSL https://packages.alg0rithm.dev/install.sh | bash</code>
+    <p>Or download built packages (auto-resolves latest release / can trigger build):</p>
+    <p>
+      <a class="btn" href="https://builds.alg0rithm.dev/export/windows">Windows</a>
+      <a class="btn" href="https://builds.alg0rithm.dev/export/macos">macOS</a>
+      <a class="btn" href="https://builds.alg0rithm.dev/export/android">Android</a>
+      <a class="btn" href="https://builds.alg0rithm.dev/export/deb">DEB</a>
+      <a class="btn" href="https://builds.alg0rithm.dev/export/rpm">RPM</a>
+    </p>
+    <p>
+      <a class="btn btn2" href="https://builds.alg0rithm.dev/api/build?platform=windows">Trigger Windows build</a>
+      <a class="btn btn2" href="https://github.com/hammuod/alg0rithm-app/releases">All releases</a>
+    </p>
+    <p><a href="https://alg0rithm.dev">← Main site</a></p>
   </div>
-
 </body>
 </html>
