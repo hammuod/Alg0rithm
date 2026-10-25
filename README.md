@@ -17,6 +17,29 @@ Alg0rithm is a minimalist educational platform built to simplify programming log
 * **Pure Static:** Lightweight architecture (HTML/CSS/JS) with no heavy backend.
 * **Markdown Ready:** Lessons are dynamically rendered from Markdown files for ease of contribution.
 
+## Native apps (Windows · macOS · Linux · Android)
+
+This repository is the **website / PWA only**.
+
+All desktop and mobile packages are built in a separate repo that **pulls this code** and packages it:
+
+**→ [hammuod/alg0rithm-app](https://github.com/hammuod/alg0rithm-app)**
+
+| Platform | How to get it |
+|----------|----------------|
+| **Linux** | `curl -fsSL https://raw.githubusercontent.com/hammuod/alg0rithm-app/main/install.sh \| bash` |
+| **Windows / macOS / Android** | [Latest Release](https://github.com/hammuod/alg0rithm-app/releases/latest) |
+
+To rebuild all packages (free CI):
+
+```bash
+# in alg0rithm-app
+git tag build
+git push origin build
+```
+
+Each platform has its **own independent** workflow YAML (DEB, RPM, Arch, Alpine, Windows, macOS, Android, …).
+
 ## Deployment & Updates
 
 With over **80 deployments**, Alg0rithm is constantly evolving. Our team operates on a weekly rotation, ensuring daily updates and consistent project growth.
