@@ -3,6 +3,26 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/build",
+      "has": [{ "type": "host", "value": "api.alg0rithm.dev" }],
+      "destination": "/api/build"
+    },
+    {
+      "source": "/dl",
+      "has": [{ "type": "host", "value": "api.alg0rithm.dev" }],
+      "destination": "/api/dl"
+    },
+    {
+      "source": "/install.sh",
+      "has": [{ "type": "host", "value": "api.alg0rithm.dev" }],
+      "destination": "/api/install"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "api.alg0rithm.dev" }],
+      "destination": "/api/index.html"
+    },
+    {
       "source": "/install.sh",
       "has": [{ "type": "host", "value": "packages.alg0rithm.dev" }],
       "destination": "/api/install"
