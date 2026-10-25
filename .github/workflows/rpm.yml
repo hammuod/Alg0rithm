@@ -1,0 +1,25 @@
+name: RPM
+on:
+  workflow_dispatch:
+  push:
+    tags: ['build*']
+permissions:
+  contents: write
+jobs:
+  build:
+    name: Build RPM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq rpm
+      - run: chmod +x scripts/build-rpm.sh && ./scripts/build-rpm.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-rpm
+          path: dist/*
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

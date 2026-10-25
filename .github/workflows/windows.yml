@@ -1,0 +1,25 @@
+name: Windows
+on:
+  workflow_dispatch:
+  push:
+    tags: ['build*']
+permissions:
+  contents: write
+jobs:
+  build:
+    name: Build Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: bash
+        run: chmod +x scripts/build-windows.sh && ./scripts/build-windows.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-windows
+          path: dist/*
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
